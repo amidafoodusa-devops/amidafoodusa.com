@@ -1,0 +1,36 @@
+#slider-17 .wd-slide {
+	min-height: 500px;
+}
+
+@media (max-width: 1024px) {
+	#slider-17 .wd-slide {
+		min-height: 500px;
+	}
+}
+
+@media (max-width: 767px) {
+	#slider-17 .wd-slide {
+		min-height: 500px;
+	}
+}
+
+/*
+     FILE ARCHIVED ON 21:41:41 Mar 06, 2025 AND RETRIEVED FROM THE
+     INTERNET ARCHIVE ON 03:39:04 Apr 02, 2026.
+     JAVASCRIPT APPENDED BY WAYBACK MACHINE, COPYRIGHT INTERNET ARCHIVE.
+
+     ALL OTHER CONTENT MAY ALSO BE PROTECTED BY COPYRIGHT (17 U.S.C.
+     SECTION 108(a)(3)).
+*/
+/*
+playback timings (ms):
+  captures_list: 0.649
+  exclusion.robots: 0.067
+  exclusion.robots.policy: 0.056
+  esindex: 0.011
+  cdx.remote: 71.606
+  LoadShardBlock: 190.553 (3)
+  PetaboxLoader3.datanode: 393.063 (4)
+  PetaboxLoader3.resolve: 903.547 (2)
+  load_resource: 1239.506
+*/

@@ -1,0 +1,121 @@
+html {
+  scroll-behavior: smooth;
+}
+
+a[data-static-link="true"] {
+  cursor: pointer;
+}
+
+body.mobile-nav-open {
+  overflow: hidden;
+}
+
+.mobile-nav-overlay {
+  display: none;
+  position: fixed;
+  inset: 0;
+  background: rgba(0, 0, 0, 0.45);
+  z-index: 998;
+}
+
+.mobile-nav-overlay.is-open {
+  display: block;
+}
+
+.mobile-nav {
+  display: none;
+  position: fixed;
+  top: 0;
+  left: 0;
+  bottom: 0;
+  width: min(92vw, 360px);
+  max-width: 360px;
+  overflow-y: auto;
+  background: #fff;
+  z-index: 999;
+  box-shadow: 0 12px 40px rgba(0, 0, 0, 0.2);
+}
+
+.mobile-nav.is-open {
+  display: block;
+}
+
+.mobile-nav .submenu-toggle {
+  appearance: none;
+  border: 0;
+  background: transparent;
+  cursor: pointer;
+  font: inherit;
+  line-height: 1;
+  padding: 0.75rem;
+  margin-left: auto;
+}
+
+.mobile-nav .menu-item-has-children > ul,
+.mobile-nav .menu-item-has-children > .wd-dropdown-menu {
+  display: none;
+}
+
+.mobile-nav .menu-item-has-children.is-open > ul,
+.mobile-nav .menu-item-has-children.is-open > .wd-dropdown-menu {
+  display: block;
+}
+
+.mobile-nav .menu-item-has-children {
+  display: flex;
+  flex-wrap: wrap;
+  align-items: center;
+}
+
+.mobile-nav .menu-item-has-children > a {
+  flex: 1 1 auto;
+}
+
+.mobile-nav .menu-item-has-children > ul,
+.mobile-nav .menu-item-has-children > .wd-dropdown-menu {
+  flex-basis: 100%;
+}
+
+#products .wd-carousel-inner,
+#gallery .wd-carousel-inner,
+#testimonials .wd-carousel-inner {
+  overflow: visible !important;
+}
+
+#products .wd-carousel-wrap,
+#gallery .wd-carousel-wrap,
+#testimonials .wd-carousel-wrap {
+  display: grid !important;
+  grid-template-columns: repeat(auto-fit, minmax(220px, 1fr));
+  gap: 1.5rem;
+  transform: none !important;
+}
+
+#products .wd-carousel-item,
+#gallery .wd-carousel-item,
+#testimonials .wd-carousel-item {
+  width: auto !important;
+  margin-right: 0 !important;
+}
+
+#products .wd-nav-arrows,
+#products .wd-carousel-pagin,
+#gallery .wd-nav-arrows,
+#gallery .wd-carousel-pagin,
+#testimonials .wd-nav-arrows,
+#testimonials .wd-carousel-pagin {
+  display: none !important;
+}
+
+#products .wd-slide,
+#gallery .wd-slide,
+#testimonials .wd-slide {
+  height: auto !important;
+}
+
+@media (min-width: 1025px) {
+  .mobile-nav,
+  .mobile-nav-overlay {
+    display: none !important;
+  }
+}
