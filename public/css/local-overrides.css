@@ -1,44 +1,32 @@
-html {
-  scroll-behavior: smooth;
-}
+html { scroll-behavior: smooth; }
 
-a[data-static-link="true"] {
-  cursor: pointer;
-}
+a[data-static-link="true"] { cursor: pointer; }
 
-body.mobile-nav-open {
-  overflow: hidden;
-}
+body.mobile-nav-open { overflow: hidden; }
 
+/* =====================================================
+   MOBILE NAV
+   ===================================================== */
 .mobile-nav-overlay {
   display: none;
   position: fixed;
   inset: 0;
-  background: rgba(0, 0, 0, 0.45);
+  background: rgba(0,0,0,0.45);
   z-index: 998;
 }
-
-.mobile-nav-overlay.is-open {
-  display: block;
-}
+.mobile-nav-overlay.is-open { display: block; }
 
 .mobile-nav {
   display: none;
   position: fixed;
-  top: 0;
-  left: 0;
-  bottom: 0;
+  top: 0; left: 0; bottom: 0;
   width: min(92vw, 360px);
-  max-width: 360px;
   overflow-y: auto;
   background: #fff;
   z-index: 999;
-  box-shadow: 0 12px 40px rgba(0, 0, 0, 0.2);
+  box-shadow: 0 12px 40px rgba(0,0,0,0.2);
 }
-
-.mobile-nav.is-open {
-  display: block;
-}
+.mobile-nav.is-open { display: block; }
 
 .mobile-nav .submenu-toggle {
   appearance: none;
@@ -52,70 +40,160 @@ body.mobile-nav-open {
 }
 
 .mobile-nav .menu-item-has-children > ul,
-.mobile-nav .menu-item-has-children > .wd-dropdown-menu {
-  display: none;
-}
+.mobile-nav .menu-item-has-children > .wd-dropdown-menu { display: none; }
 
 .mobile-nav .menu-item-has-children.is-open > ul,
-.mobile-nav .menu-item-has-children.is-open > .wd-dropdown-menu {
-  display: block;
-}
+.mobile-nav .menu-item-has-children.is-open > .wd-dropdown-menu { display: block; }
 
 .mobile-nav .menu-item-has-children {
   display: flex;
   flex-wrap: wrap;
   align-items: center;
 }
-
-.mobile-nav .menu-item-has-children > a {
-  flex: 1 1 auto;
-}
-
+.mobile-nav .menu-item-has-children > a { flex: 1 1 auto; }
 .mobile-nav .menu-item-has-children > ul,
-.mobile-nav .menu-item-has-children > .wd-dropdown-menu {
-  flex-basis: 100%;
+.mobile-nav .menu-item-has-children > .wd-dropdown-menu { flex-basis: 100%; }
+
+@media (min-width: 1025px) {
+  .mobile-nav, .mobile-nav-overlay { display: none !important; }
 }
 
+/* =====================================================
+   CAROUSEL GRID OVERRIDES
+   (force carousels to render as grids - no JS carousel needed)
+   ===================================================== */
 #products .wd-carousel-inner,
 #gallery .wd-carousel-inner,
-#testimonials .wd-carousel-inner {
-  overflow: visible !important;
-}
+.testimonials .wd-carousel-inner { overflow: visible !important; }
 
 #products .wd-carousel-wrap,
-#gallery .wd-carousel-wrap,
-#testimonials .wd-carousel-wrap {
+.testimonials .wd-carousel-wrap {
   display: grid !important;
-  grid-template-columns: repeat(auto-fit, minmax(220px, 1fr));
+  grid-template-columns: repeat(auto-fill, minmax(220px, 1fr));
+  gap: 1.5rem;
+  transform: none !important;
+}
+
+#gallery .wd-carousel-wrap {
+  display: grid !important;
+  grid-template-columns: repeat(auto-fill, minmax(140px, 1fr));
+  gap: 6px;
+  transform: none !important;
+}
+
+.info-box-carousel-wrapper .wd-carousel-wrap {
+  display: grid !important;
+  grid-template-columns: repeat(auto-fill, minmax(180px, 1fr));
   gap: 1.5rem;
   transform: none !important;
 }
 
 #products .wd-carousel-item,
 #gallery .wd-carousel-item,
-#testimonials .wd-carousel-item {
+.testimonials .wd-carousel-item,
+.info-box-carousel-wrapper .wd-carousel-item {
   width: auto !important;
   margin-right: 0 !important;
 }
 
+/* Hide carousel nav arrows/pagination for grids */
 #products .wd-nav-arrows,
-#products .wd-carousel-pagin,
+#products .wd-nav-pagin-wrap,
 #gallery .wd-nav-arrows,
-#gallery .wd-carousel-pagin,
-#testimonials .wd-nav-arrows,
-#testimonials .wd-carousel-pagin {
-  display: none !important;
+#gallery .wd-nav-pagin-wrap,
+.testimonials .wd-nav-arrows,
+.testimonials .wd-nav-pagin-wrap,
+.info-box-carousel-wrapper .wd-nav-arrows { display: none !important; }
+
+/* =====================================================
+   THEME VARIABLE OVERRIDES
+   Ensure brand colors are applied even if xts-theme-settings.css is incomplete
+   ===================================================== */
+:root {
+  --wd-primary-color: #efad32;
+  --wd-alternative-color: #efad32;
+  --wd-container-w: 1200px;
+  --wd-text-color: #555;
+  --wd-title-color: #1a1a1a;
+  --wd-entities-title-color: #333;
+  --wd-link-color: #333;
+  --wd-link-color-hover: #efad32;
+  --wd-text-font: "Poppins", sans-serif;
+  --wd-title-font: "Roboto", sans-serif;
+  --wd-title-font-weight: 700;
+  --wd-title-transform: none;
+  --wd-text-font-size: 15px;
+  --wd-text-font-weight: 400;
+  --notices-success-bg: #5cb85c;
+  --notices-success-color: #fff;
+  --notices-warning-bg: #f0ad4e;
+  --notices-warning-color: #fff;
 }
 
-#products .wd-slide,
-#gallery .wd-slide,
-#testimonials .wd-slide {
-  height: auto !important;
+/* =====================================================
+   HIDE DEAD WOOCOMMERCE / WORDPRESS CRUFT
+   ===================================================== */
+.cart-widget-side,
+.wd-header-wishlist,
+.wd-close-side,
+.wrap-price,
+.wd-buttons,
+.emaillist,
+.es_subscription_message,
+.elementor-shortcode:has(.emaillist),
+/* Lorem ipsum placeholder column */
+.elementor-element-dd6dcd2 { display: none !important; }
+
+/* =====================================================
+   HERO SECTION
+   ===================================================== */
+.slidercst .wd-slide {
+  min-height: 500px;
+  display: flex;
+  align-items: center;
+}
+@media (max-width: 767px) {
+  .slidercst .wd-slide { min-height: 300px; }
 }
 
-@media (min-width: 1025px) {
-  .mobile-nav,
-  .mobile-nav-overlay {
-    display: none !important;
-  }
+/* =====================================================
+   SECTION SPACING
+   ===================================================== */
+.elementor-top-section { padding-top: 40px; padding-bottom: 40px; }
+.elementor-inner-section { padding-top: 20px; padding-bottom: 20px; }
+
+/* Custom color class used in products heading */
+.cstclr { color: #efad32; }
+
+/* =====================================================
+   GALLERY IMAGES
+   ===================================================== */
+.wd-gallery-item img {
+  width: 100%;
+  aspect-ratio: 1;
+  object-fit: cover;
+  display: block;
 }
+
+/* =====================================================
+   SCROLL TO TOP
+   ===================================================== */
+.scrollToTop {
+  position: fixed;
+  bottom: 24px;
+  right: 24px;
+  width: 40px;
+  height: 40px;
+  background: #efad32;
+  color: #000;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  font-size: 18px;
+  z-index: 999;
+  text-decoration: none;
+  opacity: 0;
+  transition: opacity 0.3s;
+}
+.scrollToTop:after { content: "↑"; }
+.scrollToTop.visible { opacity: 1; }
