@@ -1,1721 +1,661 @@
-
 <!DOCTYPE html>
-
-<html lang="en-US">
+<html lang="en">
 <head>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <title>Amida Food USA</title>
+  <meta name="description" content="Amida Food Corp. offers vegetarian, vegan, and meat-free healthy products.">
+  <style>
+    :root{
+      --bg:#ffffff;
+      --text:#161616;
+      --muted:#5b5b5b;
+      --surface:#f7f4ef;
+      --surface-2:#fafafa;
+      --border:#e8e1d7;
+      --accent:#efad32;
+      --accent-dark:#d9981f;
+      --header:#050505;
+      --max:1280px;
+      --shadow:0 18px 50px rgba(0,0,0,.08);
+      --radius:18px;
+    }
+    *{box-sizing:border-box}
+    html{scroll-behavior:smooth}
+    body{
+      margin:0;
+      font-family:Arial, Helvetica, sans-serif;
+      color:var(--text);
+      background:var(--bg);
+      line-height:1.5;
+    }
+    img{max-width:100%;display:block}
+    a{color:inherit;text-decoration:none}
+    .container{width:min(var(--max), calc(100% - 32px)); margin:0 auto}
+    .section{padding:84px 0}
+    .eyebrow{
+      display:inline-block;
+      margin-bottom:14px;
+      color:var(--accent-dark);
+      font-weight:700;
+      letter-spacing:.08em;
+      text-transform:uppercase;
+      font-size:.82rem;
+    }
+    h1,h2,h3,h4,p{margin:0}
+    h1{
+      font-size:clamp(3rem, 6vw, 5.4rem);
+      line-height:.95;
+      letter-spacing:.01em;
+      font-weight:800;
+    }
+    h2{
+      font-size:clamp(2rem, 4vw, 3.25rem);
+      line-height:1.05;
+      font-weight:800;
+    }
+    h3{
+      font-size:1.2rem;
+      line-height:1.25;
+      font-weight:800;
+    }
+    p.lead{
+      font-size:1.08rem;
+      color:var(--muted);
+      max-width:760px;
+    }
+    .btn{
+      display:inline-flex;
+      align-items:center;
+      justify-content:center;
+      gap:10px;
+      min-height:48px;
+      padding:0 22px;
+      border-radius:0;
+      font-weight:700;
+      transition:.2s ease;
+      white-space:nowrap;
+    }
+    .btn-primary{
+      background:var(--accent);
+      color:#111;
+      box-shadow:var(--shadow);
+    }
+    .btn-primary:hover{background:#f2b844}
+    .btn-secondary{
+      border:1px solid #111;
+      color:#111;
+      background:#fff;
+    }
 
+    /* Header */
+    .site-header{
+      position:sticky;
+      top:0;
+      z-index:50;
+      background:rgba(5,5,5,.96);
+      color:#fff;
+      border-bottom:1px solid rgba(255,255,255,.08);
+      backdrop-filter:blur(8px);
+    }
+    .nav-row{
+      min-height:86px;
+      display:grid;
+      grid-template-columns:auto 1fr auto;
+      align-items:center;
+      gap:24px;
+    }
+    .logo img{width:170px;height:auto}
+    .nav{
+      display:flex;
+      justify-content:center;
+      align-items:center;
+      gap:34px;
+      flex-wrap:wrap;
+    }
+    .nav a{
+      color:#fff;
+      font-size:.95rem;
+      font-weight:700;
+      text-transform:uppercase;
+    }
+    .nav a:hover{color:var(--accent)}
+    .header-cta img{width:17px;height:19px}
 
+    /* Hero */
+    .hero{
+      position:relative;
+      min-height:760px;
+      color:#111;
+      background:
+        linear-gradient(90deg, rgba(255,255,255,.12) 0%, rgba(255,255,255,.08) 18%, rgba(255,255,255,0) 34%),
+        url('images/2024-09-10-150852-1.png') center center / cover no-repeat;
+    }
+    .hero::after{
+      content:"";
+      position:absolute;
+      inset:0;
+      background:linear-gradient(90deg, rgba(255,255,255,.34) 0%, rgba(255,255,255,.18) 24%, rgba(255,255,255,0) 46%);
+      pointer-events:none;
+    }
+    .hero-inner{
+      position:relative;
+      z-index:1;
+      min-height:760px;
+      display:flex;
+      align-items:center;
+      padding:70px 0 120px;
+    }
+    .hero-copy{
+      width:min(620px, 100%);
+      padding:20px 0;
+    }
+    .hero-copy p{
+      margin-top:24px;
+      font-size:1.25rem;
+      line-height:1.5;
+      max-width:540px;
+      color:#1f1f1f;
+      font-weight:600;
+    }
 
+    /* Cards and grids */
+    .grid{display:grid; gap:28px}
+    .categories{
+      margin-top:-78px;
+      position:relative;
+      z-index:2;
+      grid-template-columns:repeat(3, minmax(0,1fr));
+    }
+    .card{
+      background:#fff;
+      border:1px solid var(--border);
+      border-radius:var(--radius);
+      overflow:hidden;
+      box-shadow:var(--shadow);
+    }
+    .category-card img{
+      width:100%;
+      aspect-ratio:1/1;
+      object-fit:cover;
+    }
+    .category-card .content{
+      padding:18px 18px 22px;
+      display:flex;
+      align-items:center;
+      justify-content:space-between;
+      gap:16px;
+    }
+    .category-card h3{font-size:1.08rem}
+    .arrow{
+      width:34px;height:34px;border-radius:999px;
+      display:grid;place-items:center;
+      background:var(--surface);
+      border:1px solid var(--border);
+      flex:0 0 auto;
+      font-size:1.1rem;
+    }
 
+    .about{
+      display:grid;
+      grid-template-columns:minmax(0, 540px) minmax(0, 1fr);
+      gap:56px;
+      align-items:center;
+    }
+    .about-image{
+      border-radius:28px;
+      overflow:hidden;
+      box-shadow:var(--shadow);
+    }
+    .about-image img{width:100%; height:100%; object-fit:cover}
+    .about-copy p{margin-top:20px; color:var(--muted); font-size:1.05rem}
+    .about-actions{margin-top:28px}
 
+    .products-layout{
+      display:grid;
+      grid-template-columns:minmax(0, 360px) minmax(0, 1fr);
+      gap:36px;
+      align-items:start;
+    }
+    .mission-card{
+      position:sticky;
+      top:114px;
+      background:var(--surface);
+      border:1px solid var(--border);
+      border-radius:26px;
+      padding:30px;
+    }
+    .mission-card p{
+      color:var(--muted);
+      margin-top:16px;
+      font-size:1rem;
+    }
+    .products-grid{
+      display:grid;
+      grid-template-columns:repeat(3, minmax(0,1fr));
+      gap:24px;
+    }
+    .product-card{
+      background:#fff;
+      border:1px solid var(--border);
+      border-radius:20px;
+      overflow:hidden;
+      transition:transform .18s ease, box-shadow .18s ease;
+      box-shadow:0 8px 28px rgba(0,0,0,.05);
+    }
+    .product-card:hover{
+      transform:translateY(-2px);
+      box-shadow:0 18px 42px rgba(0,0,0,.08);
+    }
+    .product-card img{
+      width:100%;
+      aspect-ratio:5/4;
+      object-fit:cover;
+    }
+    .product-card .content{padding:18px}
+    .pill{
+      display:inline-block;
+      padding:6px 10px;
+      border-radius:999px;
+      background:var(--surface);
+      color:#6b5b35;
+      border:1px solid var(--border);
+      font-size:.78rem;
+      font-weight:700;
+      margin-bottom:12px;
+      text-transform:uppercase;
+      letter-spacing:.04em;
+    }
 
+    .gallery-grid{
+      margin-top:28px;
+      grid-template-columns:repeat(4, minmax(0,1fr));
+    }
+    .gallery-grid img{
+      width:100%;
+      aspect-ratio:1/1;
+      object-fit:cover;
+      border-radius:18px;
+      box-shadow:0 10px 30px rgba(0,0,0,.05);
+    }
 
+    .testimonial{
+      background:#111;
+      color:#fff;
+      border-radius:28px;
+      padding:42px;
+      box-shadow:var(--shadow);
+    }
+    .testimonial p{
+      margin-top:14px;
+      font-size:1.12rem;
+      color:rgba(255,255,255,.88);
+      max-width:900px;
+    }
+    .quote-mark{
+      font-size:4rem;
+      color:var(--accent);
+      line-height:1;
+      margin-bottom:8px;
+    }
 
-<!-- End Wayback Rewrite JS Include -->
-<meta charset="utf-8"/>
+    .contact-wrap{
+      display:grid;
+      grid-template-columns:1.2fr .8fr .8fr;
+      gap:24px;
+    }
+    .contact-card{
+      background:#fff;
+      border:1px solid var(--border);
+      border-radius:24px;
+      padding:28px;
+      box-shadow:0 8px 28px rgba(0,0,0,.04);
+    }
+    .contact-card p + p{margin-top:10px}
+    .contact-card .label{
+      color:var(--accent-dark);
+      font-weight:800;
+      text-transform:uppercase;
+      letter-spacing:.06em;
+      font-size:.8rem;
+      margin-bottom:12px;
+    }
+    .contact-card a{color:#111; text-decoration:underline}
+    .quick-links{
+      display:grid;
+      gap:10px;
+      margin-top:14px;
+    }
+    .quick-links a{
+      padding:10px 0;
+      border-bottom:1px solid var(--border);
+    }
 
+    footer{
+      margin-top:40px;
+      padding:26px 0 36px;
+      border-top:1px solid var(--border);
+      color:var(--muted);
+      font-size:.95rem;
+    }
 
-<title>Amida Food USA – Amida Food USA</title>
-<meta content="width=device-width, initial-scale=1" name="viewport"/>
-<link rel="preconnect" href="https://fonts.googleapis.com"/>
-<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin/>
-<link href="https://fonts.googleapis.com/css2?family=Roboto:wght@400;500;700&family=Raleway:wght@400;500;600;700&family=Poppins:wght@400;500;600&display=swap" rel="stylesheet"/>
-<!-- Bootstrap grid -->
-<link rel="stylesheet" href="css/bootstrap-light.min.css"/>
-<!-- Woodmart theme core -->
-<link rel="stylesheet" href="css/woodmart-base.min.css"/>
-<link rel="stylesheet" href="css/woodmart-woocommerce-base.min.css"/>
-<link rel="stylesheet" href="css/woodmart-int-elem-base.min.css"/>
-<link rel="stylesheet" href="css/woodmart-header-base.min.css"/>
-<link rel="stylesheet" href="css/woodmart-header-el-base.min.css"/>
-<link rel="stylesheet" href="css/woodmart-footer-base.min.css"/>
-<link rel="stylesheet" href="css/woodmart-lib-swiper.min.css"/>
-<link rel="stylesheet" href="css/woodmart-lib-swiper-arrows.min.css"/>
-<link rel="stylesheet" href="css/woodmart-lib-swiper-pagin.min.css"/>
-<link rel="stylesheet" href="css/woodmart-el-slider.min.css"/>
-<link rel="stylesheet" href="css/woodmart-woo-product-loop.min.css"/>
-<link rel="stylesheet" href="css/woodmart-woo-product-loop-alt.min.css"/>
-<link rel="stylesheet" href="css/woodmart-el-info-box.min.css"/>
-<link rel="stylesheet" href="css/woodmart-el-gallery.min.css"/>
-<link rel="stylesheet" href="css/woodmart-el-testimonial.min.css"/>
-<link rel="stylesheet" href="css/woodmart-mod-tools.min.css"/>
-<link rel="stylesheet" href="css/woodmart-mod-star-rating.min.css"/>
-<link rel="stylesheet" href="css/woodmart-opt-scrolltotop.min.css"/>
-<link rel="stylesheet" href="css/woodmart-el-social-icons.min.css"/>
-<link rel="stylesheet" href="css/woodmart-child-style.css"/>
-<!-- Elementor -->
-<link rel="stylesheet" href="css/elementor-frontend.min.css"/>
-<link rel="stylesheet" href="css/elementor-widget-icon-list.min.css"/>
-<link rel="stylesheet" href="css/elementor-fadeInLeft.min.css"/>
-<link rel="stylesheet" href="css/elementor-fadeInUp.min.css"/>
-<link rel="stylesheet" href="css/elementor-slideInDown.min.css"/>
-<link rel="stylesheet" href="css/elementor-slideInLeft.min.css"/>
-<link rel="stylesheet" href="css/elementor-slideInRight.min.css"/>
-<link rel="stylesheet" href="css/elementor-slideInUp.min.css"/>
-<!-- Dynamic theme/page CSS -->
-<link rel="stylesheet" href="css/xts-theme-settings.css"/>
-<link rel="stylesheet" href="css/xts-default-header.css"/>
-<link rel="stylesheet" href="css/elementor-post-16.css"/>
-<link rel="stylesheet" href="css/elementor-post-466-css.css"/>
-<link rel="stylesheet" href="css/xts-style-term-17-css.css"/>
-<link rel="stylesheet" href="css/wc-blocks-style-css.css"/>
-<!-- Local overrides last -->
-<link rel="stylesheet" href="css/local-overrides.css"/>
+    @media (max-width: 1100px){
+      .products-layout{grid-template-columns:1fr}
+      .mission-card{position:static}
+      .products-grid{grid-template-columns:repeat(2, minmax(0,1fr))}
+      .gallery-grid{grid-template-columns:repeat(3, minmax(0,1fr))}
+      .contact-wrap{grid-template-columns:1fr 1fr}
+    }
+    @media (max-width: 860px){
+      .nav-row{grid-template-columns:1fr; justify-items:center; padding:18px 0}
+      .nav{gap:18px}
+      .hero, .hero-inner{min-height:620px}
+      .hero-copy{max-width:100%}
+      .hero-copy p{font-size:1.05rem}
+      .categories{grid-template-columns:repeat(2, minmax(0,1fr)); margin-top:-54px}
+      .about{grid-template-columns:1fr}
+      .gallery-grid{grid-template-columns:repeat(2, minmax(0,1fr))}
+      .contact-wrap{grid-template-columns:1fr}
+    }
+    @media (max-width: 560px){
+      .section{padding:64px 0}
+      .container{width:min(var(--max), calc(100% - 20px))}
+      .hero{min-height:520px; background-position:center}
+      .hero::after{background:linear-gradient(180deg, rgba(255,255,255,.34) 0%, rgba(255,255,255,.14) 30%, rgba(255,255,255,0) 100%)}
+      .hero-inner{align-items:flex-start; min-height:520px; padding-top:34px}
+      h1{font-size:clamp(2.4rem, 13vw, 3.6rem)}
+      .hero-copy p{margin-top:16px; max-width:100%; font-size:1rem}
+      .categories,
+      .products-grid,
+      .gallery-grid{grid-template-columns:1fr}
+      .testimonial{padding:28px}
+      .btn{width:100%}
+    }
+  </style>
 </head>
-<body class="home page-template-default page page-id-16 theme-woodmart woocommerce-no-js wrapper-full-width categories-accordion-on woodmart-ajax-shop-on offcanvas-sidebar-mobile offcanvas-sidebar-tablet sticky-toolbar-on elementor-default elementor-kit-8 elementor-page elementor-page-16" id="top">
-
-
-
-
-
-<div class="website-wrapper">
-<header class="whb-header whb-default_header whb-sticky-shadow whb-scroll-stick whb-sticky-real">
-<div class="whb-main-header">
-<div class="whb-row whb-top-bar whb-not-sticky-row whb-with-bg whb-without-border whb-color-dark whb-flex-flex-middle">
-<div class="container">
-<div class="whb-flex-row whb-top-bar-inner">
-<div class="whb-column whb-col-left whb-visible-lg">
-<div class="site-logo">
-<a aria-label="Site logo" class="wd-logo wd-main-logo" data-static-link="true" href="#top" rel="home">
-<img alt="Amida Food USA" src="images/Amida-Food-Corp.png" style="max-width: 200px;"/> </a>
-</div>
-</div>
-<div class="whb-column whb-col-center whb-visible-lg">
-<div aria-label="Main navigation" class="wd-header-nav wd-header-main-nav text-center wd-design-1" role="navigation">
-<ul class="menu wd-nav wd-nav-main wd-style-default wd-gap-m" id="menu-main-menu"><li class="menu-item menu-item-type-post_type menu-item-object-page menu-item-home current-menu-item page_item page-item-16 current_page_item menu-item-24 item-level-0 menu-simple-dropdown wd-event-hover" id="menu-item-24"><a class="woodmart-nav-link" data-static-link="true" href="#top"><span class="nav-link-text">Home</span></a></li>
-<li class="menu-item menu-item-type-post_type menu-item-object-page menu-item-580 item-level-0 menu-simple-dropdown wd-event-hover" id="menu-item-580"><a class="woodmart-nav-link" data-static-link="true" href="#about"><span class="nav-link-text">About Amida Food</span></a></li>
-<li class="menu-item menu-item-type-custom menu-item-object-custom menu-item-has-children menu-item-582 item-level-0 menu-simple-dropdown wd-event-hover" id="menu-item-582"><a class="woodmart-nav-link" data-static-link="true" href="#products"><span class="nav-link-text">Products</span></a><div class="color-scheme-dark wd-design-default wd-dropdown-menu wd-dropdown"><div class="container">
-<ul class="wd-sub-menu color-scheme-dark">
-<li class="menu-item menu-item-type-custom menu-item-object-custom menu-item-1183 item-level-1 wd-event-hover" id="menu-item-1183"><a class="woodmart-nav-link" data-static-link="true" href="#products">Other products</a></li>
-<li class="menu-item menu-item-type-custom menu-item-object-custom menu-item-1184 item-level-1 wd-event-hover" id="menu-item-1184"><a class="woodmart-nav-link" data-static-link="true" href="#products">Veg Beef</a></li>
-<li class="menu-item menu-item-type-custom menu-item-object-custom menu-item-1185 item-level-1 wd-event-hover" id="menu-item-1185"><a class="woodmart-nav-link" data-static-link="true" href="#products">Vege Chicken</a></li>
-<li class="menu-item menu-item-type-custom menu-item-object-custom menu-item-1186 item-level-1 wd-event-hover" id="menu-item-1186"><a class="woodmart-nav-link" data-static-link="true" href="#products">Vege Ham</a></li>
-<li class="menu-item menu-item-type-custom menu-item-object-custom menu-item-1187 item-level-1 wd-event-hover" id="menu-item-1187"><a class="woodmart-nav-link" data-static-link="true" href="#products">Vege Lamb</a></li>
-<li class="menu-item menu-item-type-custom menu-item-object-custom menu-item-1188 item-level-1 wd-event-hover" id="menu-item-1188"><a class="woodmart-nav-link" data-static-link="true" href="#products">Vege Meats</a></li>
-<li class="menu-item menu-item-type-custom menu-item-object-custom menu-item-1189 item-level-1 wd-event-hover" id="menu-item-1189"><a class="woodmart-nav-link" data-static-link="true" href="#products">Vege Seafood</a></li>
-</ul>
-</div>
-</div>
-</li>
-<li class="menu-item menu-item-type-post_type menu-item-object-page menu-item-590 item-level-0 menu-simple-dropdown wd-event-hover" id="menu-item-590"><a class="woodmart-nav-link" data-static-link="true" href="#testimonials"><span class="nav-link-text">Testimonials</span></a></li>
-<li class="menu-item menu-item-type-post_type menu-item-object-page menu-item-581 item-level-0 menu-simple-dropdown wd-event-hover" id="menu-item-581"><a class="woodmart-nav-link" data-static-link="true" href="#contact"><span class="nav-link-text">contact us</span></a></li>
-</ul></div><!--END MAIN-NAV-->
-</div>
-<div class="whb-column whb-col-right whb-visible-lg">
-
-<div class="whb-kwr8s4fg1k8j6t4vg0bw wd-button-wrapper text-center" id="wd-67ca166a0c325"><a class="btn btn-scheme-dark btn-scheme-hover-dark btn-style-default btn-style-rectangle btn-size-large HeadBtnCst btn-icon-pos-right" data-static-link="true" href="#contact" title="">Contact Us<span class="wd-btn-icon"><img alt="" class="attachment- size-" decoding="async" height="19" src="images/Vector-2024-07-30T114121.841.png" width="17"/></span></a></div></div>
-<div class="whb-column whb-col-mobile whb-hidden-lg">
-
-</div>
-</div>
-</div>
-</div>
-<div class="whb-row whb-general-header whb-not-sticky-row whb-with-bg whb-border-fullwidth whb-color-light whb-hidden-desktop whb-flex-flex-middle">
-<div class="container">
-<div class="whb-flex-row whb-general-header-inner">
-<div class="whb-column whb-col-left whb-visible-lg whb-empty-column">
-</div>
-<div class="whb-column whb-col-center whb-visible-lg whb-empty-column">
-</div>
-<div class="whb-column whb-col-right whb-visible-lg">
-
-<div class="wd-header-wishlist wd-tools-element wd-style-icon wd-design-2 whb-i8977fqp1lmve3hyjltf" title="My Wishlist">
-<a data-static-link="true" href="#top">
-<span class="wd-tools-icon">
-</span>
-<span class="wd-tools-text">
-				Wishlist			</span>
-</a>
-</div>
-</div>
-<div class="whb-column whb-mobile-left whb-hidden-lg">
-<div class="wd-tools-element wd-header-mobile-nav wd-style-text wd-design-1 whb-wn5z894j1g5n0yp3eeuz">
-<a aria-label="Open mobile menu" data-static-link="true" href="#" rel="nofollow">
-<span class="wd-tools-icon">
-</span>
-<span class="wd-tools-text">Menu</span>
-</a>
-</div><!--END wd-header-mobile-nav--></div>
-<div class="whb-column whb-mobile-center whb-hidden-lg">
-<div class="site-logo">
-<a aria-label="Site logo" class="wd-logo wd-main-logo" data-static-link="true" href="#top" rel="home">
-<img alt="Amida Food USA" src="images/Amida-Food-Corp.png" style="max-width: 140px;"/> </a>
-</div>
-</div>
-<div class="whb-column whb-mobile-right whb-hidden-lg">
-
-</div>
-</div>
-</div>
-</div>
-<div class="whb-row whb-header-bottom whb-not-sticky-row whb-without-bg whb-without-border whb-color-dark whb-hidden-desktop whb-hidden-mobile whb-flex-flex-middle">
-<div class="container">
-<div class="whb-flex-row whb-header-bottom-inner">
-<div class="whb-column whb-col-left whb-visible-lg">
-<div class="wd-header-text set-cont-mb-s reset-last-child"><strong style="color: #ffffff;">ADD ANYTHING HERE OR JUST REMOVE IT…</strong></div>
-
-</div>
-<div class="whb-column whb-col-center whb-visible-lg whb-empty-column">
-</div>
-<div class="whb-column whb-col-right whb-visible-lg whb-empty-column">
-</div>
-<div class="whb-column whb-col-mobile whb-hidden-lg whb-empty-column">
-</div>
-</div>
-</div>
-</div>
-</div>
-</header><main id="home"><div class="main-page-wrapper">
-<!-- MAIN CONTENT AREA -->
-<div class="container">
-<div class="row content-layout-wrapper align-items-start">
-<div class="site-content col-lg-12 col-12 col-md-12" role="main">
-<article class="post-16 page type-page status-publish has-post-thumbnail hentry" id="post-16">
-<div class="entry-content">
-<div class="elementor elementor-16">
-<section class="elementor-section elementor-top-section elementor-element elementor-element-6031687 elementor-section-full_width wd-section-stretch-content slidercst elementor-section-height-default elementor-section-height-default elementor-invisible">
-<div class="elementor-container elementor-column-gap-default">
-<div class="elementor-column elementor-col-100 elementor-top-column elementor-element elementor-element-b9a4c86">
-<div class="elementor-widget-wrap elementor-element-populated">
-<div class="elementor-element elementor-element-eed7a75 elementor-widget elementor-widget-wd_slider">
-<div class="elementor-widget-container">
-<link href="css/xts-style-term-17-css.css" id="xts-style-term-17-css" media="all" rel="stylesheet" type="text/css"/> <style>							#slide-53 .wd-slide-container {
-										--wd-align-items: center;
-															--wd-justify-content: left;
-									}
-								#slide-53.woodmart-loaded .wd-slide-bg {
-								}
-
-				#slide-53 .wd-slide-bg {
-				background-color:#fefefe;				background-size:cover;
-										background-position:center center;									}
-
-									#slide-53 .wd-slide-inner {
-						max-width:1200px;					}
-				
-				@media (max-width: 1024px) {
-				
-				
-										#slide-53 .wd-slide-inner {
-							max-width:1200px;						}
-					
-					#slide-53 .wd-slide-bg {
-																		
-																							}
-				}
-
-				@media (max-width: 767px) {
-				
-				
-										#slide-53 .wd-slide-inner {
-							max-width:500px;						}
-					
-					#slide-53 .wd-slide-bg {
-																		
-																							}
-				}
-
-				
-								</style>
-<div class="wd-slider wd-carousel-container wd-anim- wd-section-container" id="slider-17">
-<div class="wd-carousel-inner">
-<div class="wd-carousel wd-grid" style="--wd-col-lg:1;--wd-col-md:1;--wd-col-sm:1;">
-<div class="wd-carousel-wrap">
-<div class="wd-slide wd-carousel-item woodmart-loaded" id="slide-53">
-<div class="container wd-slide-container content-fixed">
-<div class="wd-slide-inner">
-<style>.elementor-53 .elementor-element.elementor-element-490dd39:not(.elementor-motion-effects-element-type-background), .elementor-53 .elementor-element.elementor-element-490dd39 > .elementor-motion-effects-container > .elementor-motion-effects-layer{background-image:url('images/2024-09-10-150852-1.png');background-position:center left;background-repeat:no-repeat;background-size:cover;}.elementor-53 .elementor-element.elementor-element-490dd39 > .elementor-container{min-height:800px;}.elementor-53 .elementor-element.elementor-element-490dd39{transition:background 0.3s, border 0.3s, border-radius 0.3s, box-shadow 0.3s;margin:0px 0px 0px 0px;padding:0px 0px 0px 0px;}.elementor-53 .elementor-element.elementor-element-490dd39 > .elementor-background-overlay{transition:background 0.3s, border-radius 0.3s, opacity 0.3s;}.elementor-53 .elementor-element.elementor-element-fc228f7 > .elementor-element-populated{margin:0px 0px 0px 0px;--e-column-margin-right:0px;--e-column-margin-left:0px;padding:0px 0px 0px 0px;}.elementor-widget-heading .elementor-heading-title{color:var( --e-global-color-primary );font-family:var( --e-global-typography-primary-font-family ), Sans-serif;font-weight:var( --e-global-typography-primary-font-weight );}.elementor-53 .elementor-element.elementor-element-295757f{text-align:left;}.elementor-53 .elementor-element.elementor-element-295757f .elementor-heading-title{color:#000000;font-family:"Roboto", Sans-serif;font-size:80px;font-weight:500;line-height:80px;letter-spacing:4.3px;word-spacing:0px;-webkit-text-stroke-width:3px;stroke-width:3px;-webkit-text-stroke-color:#000;stroke:#000;text-shadow:0px 0px 0px rgba(0,0,0,0.3);}.elementor-widget-text-editor{color:var( --e-global-color-text );font-family:var( --e-global-typography-text-font-family ), Sans-serif;font-weight:var( --e-global-typography-text-font-weight );}.elementor-widget-text-editor.elementor-drop-cap-view-stacked .elementor-drop-cap{background-color:var( --e-global-color-primary );}.elementor-widget-text-editor.elementor-drop-cap-view-framed .elementor-drop-cap, .elementor-widget-text-editor.elementor-drop-cap-view-default .elementor-drop-cap{color:var( --e-global-color-primary );border-color:var( --e-global-color-primary );}.elementor-53 .elementor-element.elementor-element-f02de92 > .elementor-widget-container{margin:10px 0px 0px 0px;}.elementor-53 .elementor-element.elementor-element-f02de92{text-align:left;color:#000000F0;font-family:"Raleway", Sans-serif;font-size:21px;font-weight:500;line-height:30px;letter-spacing:0.6px;word-spacing:2px;text-shadow:0px 0px 0px #000000;}.elementor-53 .elementor-element.elementor-element-d4783ff > .elementor-element-populated{margin:0px 0px 0px 0px;--e-column-margin-right:0px;--e-column-margin-left:0px;padding:0px 0px 0px 0px;}@media(max-width:767px){.elementor-53 .elementor-element.elementor-element-490dd39 > .elementor-container{min-height:400px;}.elementor-53 .elementor-element.elementor-element-490dd39{padding:20px 0px 0px 0px;}.elementor-53 .elementor-element.elementor-element-295757f{text-align:center;}.elementor-53 .elementor-element.elementor-element-f02de92 > .elementor-widget-container{padding:0px 30px 0px 30px;}.elementor-53 .elementor-element.elementor-element-f02de92{text-align:center;}}</style> <div class="elementor elementor-53">
-<section class="elementor-section elementor-top-section elementor-element elementor-element-490dd39 elementor-section-full_width elementor-section-height-min-height wd-section-stretch elementor-section-height-default elementor-section-items-middle">
-<div class="elementor-container elementor-column-gap-default">
-<div class="elementor-column elementor-col-50 elementor-top-column elementor-element elementor-element-fc228f7 elementor-invisible">
-<div class="elementor-widget-wrap elementor-element-populated">
-<div class="elementor-element elementor-element-295757f elementor-widget elementor-widget-heading">
-<div class="elementor-widget-container">
-<h3 class="elementor-heading-title elementor-size-default">Satisfy Your <br/>Cravings,<br/> Vegan Style.</h3> </div>
-</div>
-<div class="elementor-element elementor-element-f02de92 color-scheme-dark text-left elementor-widget elementor-widget-text-editor">
-<div class="elementor-widget-container">
-<p><span style="color: #000000;">At Amida Food Corp.® we’re on a mission. A mission to get more people into delicious vegetarian and vegan meals. A mission to provide healthy meat-free food for people and the planet.</span></p> </div>
-</div>
-</div>
-</div>
-<div class="elementor-column elementor-col-50 elementor-top-column elementor-element elementor-element-d4783ff">
-<div class="elementor-widget-wrap">
-</div>
-</div>
-</div>
-</section>
-</div>
-</div>
-</div>
-<div class="wd-slide-bg wd-fill"></div>
-</div>
-</div>
-</div>
-<div class="wd-nav-arrows wd-slider-arrows wd-custom-style wd-style-1 wd-pos-sep">
-<div class="wd-btn-arrow wd-prev">
-<div class="wd-arrow-inner"></div>
-</div>
-<div class="wd-btn-arrow wd-next">
-<div class="wd-arrow-inner"></div>
-</div>
-</div>
-</div>
-<div class="wd-nav-pagin-wrap wd-slider-pagin wd-custom-style wd-style-shape-1 text-center">
-<ul class="wd-nav-pagin"></ul>
-</div>
-</div>
-</div>
-</div>
-<div class="elementor-element elementor-element-c8c5724 elementor-widget elementor-widget-wd_infobox_carousel">
-<div class="elementor-widget-container">
-<div class="wd-carousel-container info-box-carousel-wrapper">
-<div class="wd-carousel-inner">
-<div class="wd-carousel wd-grid info-box-carousel" style="--wd-col-lg:3;--wd-col-md:3;--wd-col-sm:1;--wd-gap-lg:30px;--wd-gap-sm:10px;">
-<div class="wd-carousel-wrap">
-<div class="info-box-wrapper wd-carousel-item">
-<div class="wd-info-box text-center box-icon-align-top box-style-base color-scheme- elementor-repeater-item-610b649">
-<div class="box-icon-wrapper box-with-icon box-icon-simple">
-<div class="info-box-icon">
-<img alt="" class="attachment-woocommerce_thumbnail size-woocommerce_thumbnail" decoding="async" fetchpriority="high" height="300" sizes="(max-width: 300px) 100vw, 300px" src="images/Veg-Beef-300x300.jpg" srcset="images/Veg-Beef-300x300.jpg 300w, images/Veg-Beef-150x150.jpg 150w" width="300"/> </div>
-</div>
-<div class="info-box-content">
-<h4 class="info-box-title title box-title-style-default wd-fontsize-m">
-								Veg Beef						</h4>
-<div class="info-box-inner set-cont-mb-s reset-last-child"></div>
-</div>
-<a aria-label="Infobox link" class="wd-info-box-link wd-fill" data-static-link="true" href="#products"></a>
-</div>
-</div>
-<div class="info-box-wrapper wd-carousel-item">
-<div class="wd-info-box text-center box-icon-align-top box-style-base color-scheme- elementor-repeater-item-4ff5b39">
-<div class="box-icon-wrapper box-with-icon box-icon-simple">
-<div class="info-box-icon">
-<img alt="" class="attachment-woocommerce_thumbnail size-woocommerce_thumbnail" decoding="async" height="300" sizes="(max-width: 300px) 100vw, 300px" src="images/image-2024-08-22T041749.988-300x300.jpg" srcset="images/image-2024-08-22T041749.988-300x300.jpg 300w, images/image-2024-08-22T041749.988-150x150.jpg 150w" width="300"/> </div>
-</div>
-<div class="info-box-content">
-<h4 class="info-box-title title box-title-style-default wd-fontsize-m">
-								Vege Chicken						</h4>
-<div class="info-box-inner set-cont-mb-s reset-last-child"></div>
-</div>
-<a aria-label="Infobox link" class="wd-info-box-link wd-fill" data-static-link="true" href="#products"></a>
-</div>
-</div>
-<div class="info-box-wrapper wd-carousel-item">
-<div class="wd-info-box text-center box-icon-align-top box-style-base color-scheme- elementor-repeater-item-9a53368 with-btn box-btn-static">
-<div class="box-icon-wrapper box-with-icon box-icon-simple">
-<div class="info-box-icon">
-<img alt="" class="attachment-woocommerce_thumbnail size-woocommerce_thumbnail" decoding="async" height="300" loading="lazy" sizes="(max-width: 300px) 100vw, 300px" src="images/New-Project-55-300x300.jpg" srcset="images/New-Project-55-300x300.jpg 300w, images/New-Project-55-150x150.jpg 150w" width="300"/> </div>
-</div>
-<div class="info-box-content">
-<h4 class="info-box-title title box-title-style-default wd-fontsize-m">
-								Vege Lamb						</h4>
-<div class="info-box-inner set-cont-mb-s reset-last-child"></div>
-<div class="info-btn-wrapper">
-<div class="wd-button-wrapper text-center">
-<a class="btn btn-style-default btn-style-rectangle btn-size-default btn-color-default btn-icon-pos-right" data-static-link="true" href="#">
-<span class="wd-btn-text">
-					Read more				</span>
-</a>
-</div>
-</div>
-</div>
-</div>
-</div>
-<div class="info-box-wrapper wd-carousel-item">
-<div class="wd-info-box text-center box-icon-align-top box-style-base color-scheme- elementor-repeater-item-7077840 with-btn box-btn-static">
-<div class="box-icon-wrapper box-with-icon box-icon-simple">
-<div class="info-box-icon">
-<img alt="" class="attachment-woocommerce_thumbnail size-woocommerce_thumbnail" decoding="async" height="300" loading="lazy" sizes="(max-width: 300px) 100vw, 300px" src="images/_-_--1LOGO-scaled-300x300.jpg" srcset="images/_-_--1LOGO-scaled-300x300.jpg 300w, images/_-_--1LOGO-150x150.jpg 150w" width="300"/> </div>
-</div>
-<div class="info-box-content">
-<h4 class="info-box-title title box-title-style-default wd-fontsize-m">
-								Vege Seafood						</h4>
-<div class="info-box-inner set-cont-mb-s reset-last-child"></div>
-<div class="info-btn-wrapper">
-<div class="wd-button-wrapper text-center">
-<a class="btn btn-style-default btn-style-rectangle btn-size-default btn-color-default btn-icon-pos-right" data-static-link="true" href="#">
-<span class="wd-btn-text">
-					Read more				</span>
-</a>
-</div>
-</div>
-</div>
-</div>
-</div>
-<div class="info-box-wrapper wd-carousel-item">
-<div class="wd-info-box text-center box-icon-align-top box-style-base color-scheme- elementor-repeater-item-4a35674 with-btn box-btn-static">
-<div class="box-icon-wrapper box-with-icon box-icon-simple">
-<div class="info-box-icon">
-<img alt="" class="attachment-woocommerce_thumbnail size-woocommerce_thumbnail" decoding="async" height="300" loading="lazy" sizes="(max-width: 300px) 100vw, 300px" src="images/_-_--8LOGO-scaled-300x300.jpg" srcset="images/_-_--8LOGO-scaled-300x300.jpg 300w, images/_-_--8LOGO-150x150.jpg 150w" width="300"/> </div>
-</div>
-<div class="info-box-content">
-<h4 class="info-box-title title box-title-style-default wd-fontsize-m">
-								Bacon Ham						</h4>
-<div class="info-box-inner set-cont-mb-s reset-last-child"></div>
-<div class="info-btn-wrapper">
-<div class="wd-button-wrapper text-center">
-<a class="btn btn-style-default btn-style-rectangle btn-size-default btn-color-default btn-icon-pos-right" data-static-link="true" href="#">
-<span class="wd-btn-text">
-					Read more				</span>
-</a>
-</div>
-</div>
-</div>
-</div>
-</div>
-<div class="info-box-wrapper wd-carousel-item">
-<div class="wd-info-box text-center box-icon-align-top box-style-base color-scheme- elementor-repeater-item-14d40c1 with-btn box-btn-static">
-<div class="box-icon-wrapper box-with-icon box-icon-simple">
-<div class="info-box-icon">
-<img alt="" class="attachment-woocommerce_thumbnail size-woocommerce_thumbnail" decoding="async" height="300" loading="lazy" sizes="(max-width: 300px) 100vw, 300px" src="images/_-1_-LOGO-300x300.jpg" srcset="images/_-1_-LOGO-300x300.jpg 300w, images/_-1_-LOGO-150x150.jpg 150w" width="300"/> </div>
-</div>
-<div class="info-box-content">
-<h4 class="info-box-title title box-title-style-default wd-fontsize-m">
-								Vege Meat						</h4>
-<div class="info-box-inner set-cont-mb-s reset-last-child"></div>
-<div class="info-btn-wrapper">
-<div class="wd-button-wrapper text-center">
-<a class="btn btn-style-default btn-style-rectangle btn-size-default btn-color-default btn-icon-pos-right" data-static-link="true" href="#">
-<span class="wd-btn-text">
-					Read more				</span>
-</a>
-</div>
-</div>
-</div>
-</div>
-</div>
-</div>
-</div>
-<div class="wd-nav-arrows wd-pos-sep wd-hover-1 wd-icon-1">
-<div class="wd-btn-arrow wd-prev wd-disabled">
-<div class="wd-arrow-inner"></div>
-</div>
-<div class="wd-btn-arrow wd-next">
-<div class="wd-arrow-inner"></div>
-</div>
-</div>
-</div>
-</div>
-</div>
-</div>
-</div>
-</div>
-</div>
-</section>
-<section class="elementor-section elementor-top-section elementor-element elementor-element-8fe000e wd-section-stretch infocarcst arrowcst elementor-section-boxed elementor-section-height-default elementor-section-height-default elementor-invisible">
-<div class="elementor-container elementor-column-gap-default">
-<div class="elementor-column elementor-col-100 elementor-top-column elementor-element elementor-element-a41b00c">
-<div class="elementor-widget-wrap elementor-element-populated">
-<section class="elementor-section elementor-inner-section elementor-element elementor-element-fec50d3 elementor-section-boxed elementor-section-height-default elementor-section-height-default elementor-invisible">
-<div class="elementor-container elementor-column-gap-default">
-<div class="elementor-column elementor-col-50 elementor-inner-column elementor-element elementor-element-4c4f324 elementor-invisible">
-<div class="elementor-widget-wrap elementor-element-populated">
-<div class="elementor-element elementor-element-92762bd elementor-widget elementor-widget-image">
-<div class="elementor-widget-container">
-<img alt="" class="attachment-full size-full wp-image-1098" decoding="async" height="400" loading="lazy" sizes="(max-width: 500px) 100vw, 500px" src="images/Braised-lion-head.jpg" srcset="images/Braised-lion-head.jpg 500w, images/Braised-lion-head-150x120.jpg 150w, images/Braised-lion-head-300x240.jpg 300w" width="500"/> </div>
-</div>
-</div>
-</div>
-<div class="elementor-column elementor-col-50 elementor-inner-column elementor-element elementor-element-a878395 elementor-invisible">
-<div class="elementor-widget-wrap elementor-element-populated">
-<div class="elementor-element elementor-element-a4a9c4a elementor-widget elementor-widget-heading">
-<div class="elementor-widget-container" id="about">
-<h2 class="elementor-heading-title elementor-size-default">About Us</h2> </div>
-</div>
-<div class="elementor-element elementor-element-65669a8 elementor-widget elementor-widget-heading">
-<div class="elementor-widget-container">
-<h2 class="elementor-heading-title elementor-size-default">Enjoy An Exceptional <br/>
-journey Of Taste</h2> </div>
-</div>
-<div class="elementor-element elementor-element-d48c353 color-scheme-inherit text-left elementor-widget elementor-widget-text-editor">
-<div class="elementor-widget-container">
-<p>At Amida Food Corp.® we’re on a mission. A mission to get more people into delicious vegetarian and vegan meals. A mission to provide healthy meat-free food for people and the planet. A mission to kickstart a movement, because together, our food choices can create a healthier planet. And surely that’s a future worth eating for? </p> </div>
-</div>
-<div class="elementor-element elementor-element-2b5f233 elementor-mobile-align-center elementor-widget elementor-widget-button">
-<div class="elementor-widget-container">
-<div class="elementor-button-wrapper">
-<a class="elementor-button elementor-button-link elementor-size-sm" data-static-link="true" href="#about">
-<span class="elementor-button-content-wrapper">
-<span class="elementor-button-icon">
-<svg fill="none" height="19" viewbox="0 0 18 19" width="18" xmlns="http://www.w3.org/2000/svg"><path d="M9.97505 1.45471L16.5205 9.63653M16.5205 9.63653L9.97505 17.8183M16.5205 9.63653L1.61142 9.63653" stroke="#121212" stroke-linecap="round" stroke-linejoin="round" stroke-width="1.63636"></path></svg> </span>
-<span class="elementor-button-text">Learn more about us</span>
-</span>
-</a>
-</div>
-</div>
-</div>
-</div>
-</div>
-</div>
-</section>
-</div>
-</div>
-</div>
-</section>
-<section class="elementor-section elementor-top-section elementor-element elementor-element-65f5027 elementor-section-boxed elementor-section-height-default elementor-section-height-default">
-<div class="elementor-container elementor-column-gap-default">
-<div class="elementor-column elementor-col-100 elementor-top-column elementor-element elementor-element-30ee587">
-<div class="elementor-widget-wrap">
-</div>
-</div>
-</div>
-</section>
-<section class="elementor-section elementor-top-section elementor-element elementor-element-79a0123 wd-section-stretch elementor-section-boxed elementor-section-height-default elementor-section-height-default">
-<div class="elementor-container elementor-column-gap-default">
-<div class="elementor-column elementor-col-100 elementor-top-column elementor-element elementor-element-988c868">
-<div class="elementor-widget-wrap elementor-element-populated">
-<section class="elementor-section elementor-inner-section elementor-element elementor-element-991e3bf elementor-section-boxed elementor-section-height-default elementor-section-height-default elementor-invisible">
-<div class="elementor-container elementor-column-gap-default">
-<div class="elementor-column elementor-col-50 elementor-inner-column elementor-element elementor-element-d866fb7">
-<div class="elementor-widget-wrap elementor-element-populated">
-<div class="elementor-element elementor-element-56b23f7 elementor-widget elementor-widget-heading">
-<div class="elementor-widget-container" id="products">
-<h2 class="elementor-heading-title elementor-size-default">Our Products  </h2> </div>
-</div>
-<div class="elementor-element elementor-element-1579047 elementor-widget elementor-widget-heading">
-<div class="elementor-widget-container">
-<h2 class="elementor-heading-title elementor-size-default">VEGETARIAN, <br/>VEGAN &amp; <span class="cstclr">MEAT FREE <br/>HEALTHY PRODUCTS</span></h2> </div>
-</div>
-</div>
-</div>
-<div class="elementor-column elementor-col-50 elementor-inner-column elementor-element elementor-element-1b1042a">
-<div class="elementor-widget-wrap elementor-element-populated">
-<div class="elementor-element elementor-element-6608b80 color-scheme-inherit text-left elementor-widget elementor-widget-text-editor">
-<div class="elementor-widget-container">
-<h2 style="font-style: normal; font-variant-ligatures: normal; font-variant-caps: normal; font-weight: bold; line-height: 0px; font-family: 'The Nautigal', sans-serif; font-size: 32px; color: #efad32; text-transform: none;">Mission and Vision</h2><p>Our mission is to provide healthy , nutritious and delicious products. which can be easily prepared and enjoyed with confidence, and cultivate green concepts in our life.</p><p><span style="font-size: 13px; text-align: var(--text-align);">In our constant pursuit of quality and innovation, we have achieved international certifications such as ISO9001, ISO22000, Islamic HALAL Certification, HACCP (currently applying for SQF III) and so on.</span></p><p>We’ve also won the certifications by vegetarian associations in the United States, Europe and the United Kingdom. Our vision is to always care for consumers need and taste under promise to keep everything as natural as possible. We vow to develop delicious products and provide you an environmentally friendly lifestyle.</p> </div>
-</div>
-</div>
-</div>
-</div>
-</section>
-<section class="elementor-section elementor-inner-section elementor-element elementor-element-dd2f0a5 productscst arrowcst elementor-section-boxed elementor-section-height-default elementor-section-height-default elementor-invisible">
-<div class="elementor-container elementor-column-gap-default">
-<div class="elementor-column elementor-col-100 elementor-inner-column elementor-element elementor-element-e5dbb59">
-<div class="elementor-widget-wrap elementor-element-populated">
-<div class="elementor-element elementor-element-e926bab wd-width-100 elementor-widget elementor-widget-wd_products">
-<div class="elementor-widget-container">
-<div class="wd-carousel-container wd-products-element wd-products products" id="carousel-528">
-<div class="wd-carousel-inner">
-<div class="wd-carousel wd-grid" style="--wd-col-lg:3;--wd-col-md:3;--wd-col-sm:2;--wd-gap-lg:20px;--wd-gap-sm:10px;">
-<div class="wd-carousel-wrap">
-<div class="wd-carousel-item">
-<div class="wd-product wd-hover-alt product-grid-item product type-product post-776 status-publish first instock product_cat-veg-beef has-post-thumbnail shipping-taxable product-type-simple">
-<div class="product-wrapper">
-<div class="product-element-top wd-quick-shop">
-<a class="product-image-link" data-static-link="true" href="#products">
-<img alt="" class="attachment-large size-large" decoding="async" height="400" loading="lazy" sizes="(max-width: 500px) 100vw, 500px" src="images/New-Project-17.jpg" srcset="images/New-Project-17.jpg 500w, images/New-Project-17-150x120.jpg 150w, images/New-Project-17-300x240.jpg 300w" width="500"/> </a>
-<div class="hover-img">
-<a aria-label="Product image" data-static-link="true" href="#products">
-<img alt="" class="attachment-large size-large" decoding="async" height="1000" loading="lazy" sizes="(max-width: 1000px) 100vw, 1000px" src="images/_-_-4LOGO.jpg" srcset="images/_-_-4LOGO.jpg 1000w, images/_-_-4LOGO-300x300.jpg 300w, images/_-_-4LOGO-150x150.jpg 150w, images/_-_-4LOGO-600x600.jpg 600w, images/_-_-4LOGO-768x768.jpg 768w" width="1000"/> </a>
-</div>
-<div class="wd-buttons wd-pos-r-t">
-
-
-
-</div>
-</div>
-<div class="wd-product-header">
-<h3 class="wd-entities-title"><a data-static-link="true" href="#products">J028V   Vegan Beef Chunk</a></h3> </div>
-<div class="wd-product-cats">
-<a data-static-link="true" href="#products" rel="tag">Veg Beef</a> </div>
-<div class="wrap-price">
-<div class="swap-wrapp">
-<div class="swap-elements">
-
-</div>
-</div>
-</div>
-</div></div>
-</div>
-<div class="wd-carousel-item">
-<div class="wd-product wd-hover-alt product-grid-item product type-product post-784 status-publish first instock product_cat-veg-beef has-post-thumbnail shipping-taxable product-type-simple">
-<div class="product-wrapper">
-<div class="product-element-top wd-quick-shop">
-<a class="product-image-link" data-static-link="true" href="#products">
-<img alt="" class="attachment-large size-large" decoding="async" height="400" loading="lazy" sizes="(max-width: 500px) 100vw, 500px" src="images/Beef-balls.jpg" srcset="images/Beef-balls.jpg 500w, images/Beef-balls-150x120.jpg 150w, images/Beef-balls-300x240.jpg 300w" width="500"/> </a>
-<div class="hover-img">
-<a aria-label="Product image" data-static-link="true" href="#products">
-<img alt="" class="attachment-large size-large" decoding="async" height="557" loading="lazy" sizes="(max-width: 429px) 100vw, 429px" src="images/_-_-_-LOGO.jpg" srcset="images/_-_-_-LOGO.jpg 429w, images/_-_-_-LOGO-150x195.jpg 150w, images/_-_-_-LOGO-231x300.jpg 231w" width="429"/> </a>
-</div>
-<div class="wd-buttons wd-pos-r-t">
-
-
-
-</div>
-</div>
-<div class="wd-product-header">
-<h3 class="wd-entities-title"><a data-static-link="true" href="#products">J027  Vege Beef Ball</a></h3> </div>
-<div class="wd-product-cats">
-<a data-static-link="true" href="#products" rel="tag">Veg Beef</a> </div>
-<div class="wrap-price">
-<div class="swap-wrapp">
-<div class="swap-elements">
-
-</div>
-</div>
-</div>
-</div></div>
-</div>
-<div class="wd-carousel-item">
-<div class="wd-product wd-hover-alt product-grid-item product type-product post-785 status-publish first instock product_cat-veg-beef has-post-thumbnail shipping-taxable product-type-simple">
-<div class="product-wrapper">
-<div class="product-element-top wd-quick-shop">
-<a class="product-image-link" data-static-link="true" href="#products">
-<img alt="" class="attachment-large size-large" decoding="async" height="400" loading="lazy" sizes="(max-width: 500px) 100vw, 500px" src="images/beef-stew.jpg" srcset="images/beef-stew.jpg 500w, images/beef-stew-150x120.jpg 150w, images/beef-stew-300x240.jpg 300w" width="500"/> </a>
-<div class="hover-img">
-<a aria-label="Product image" data-static-link="true" href="#products">
-<img alt="" class="attachment-large size-large" decoding="async" height="1000" loading="lazy" sizes="(max-width: 1000px) 100vw, 1000px" src="images/Vege-Beef-Chunk.jpg" srcset="images/Vege-Beef-Chunk.jpg 1000w, images/Vege-Beef-Chunk-300x300.jpg 300w, images/Vege-Beef-Chunk-150x150.jpg 150w, images/Vege-Beef-Chunk-600x600.jpg 600w, images/Vege-Beef-Chunk-768x768.jpg 768w" width="1000"/> </a>
-</div>
-<div class="wd-buttons wd-pos-r-t">
-
-
-
-</div>
-</div>
-<div class="wd-product-header">
-<h3 class="wd-entities-title"><a data-static-link="true" href="#products">J028 Vege Beef Chunk</a></h3> </div>
-<div class="wd-product-cats">
-<a data-static-link="true" href="#products" rel="tag">Veg Beef</a> </div>
-<div class="wrap-price">
-<div class="swap-wrapp">
-<div class="swap-elements">
-
-</div>
-</div>
-</div>
-</div></div>
-</div>
-<div class="wd-carousel-item">
-<div class="wd-product wd-hover-alt product-grid-item product type-product post-795 status-publish first instock product_cat-vege-meats has-post-thumbnail shipping-taxable product-type-simple">
-<div class="product-wrapper">
-<div class="product-element-top wd-quick-shop">
-<a class="product-image-link" data-static-link="true" href="#products">
-<img alt="" class="attachment-large size-large" decoding="async" height="400" loading="lazy" sizes="(max-width: 500px) 100vw, 500px" src="images/Braised-lion-head.jpg" srcset="images/Braised-lion-head.jpg 500w, images/Braised-lion-head-150x120.jpg 150w, images/Braised-lion-head-300x240.jpg 300w" width="500"/> </a>
-<div class="hover-img">
-<a aria-label="Product image" data-static-link="true" href="#products">
-<img alt="" class="attachment-large size-large" decoding="async" height="847" loading="lazy" sizes="(max-width: 1024px) 100vw, 1024px" src="images/_-3_-LOGO-1024x847.jpg" srcset="images/_-3_-LOGO-1024x847.jpg 1024w, images/_-3_-LOGO-150x124.jpg 150w, images/_-3_-LOGO-600x496.jpg 600w, images/_-3_-LOGO-300x248.jpg 300w, images/_-3_-LOGO-768x635.jpg 768w, images/_-3_-LOGO.jpg 1275w" width="1024"/> </a>
-</div>
-<div class="wd-buttons wd-pos-r-t">
-
-
-
-</div>
-</div>
-<div class="wd-product-header">
-<h3 class="wd-entities-title"><a data-static-link="true" href="#products">E097 Vege Supreme Ball</a></h3> </div>
-<div class="wd-product-cats">
-<a data-static-link="true" href="#products" rel="tag">Vege Meats</a> </div>
-<div class="wrap-price">
-<div class="swap-wrapp">
-<div class="swap-elements">
-
-</div>
-</div>
-</div>
-</div></div>
-</div>
-<div class="wd-carousel-item">
-<div class="wd-product wd-hover-alt product-grid-item product type-product post-801 status-publish first instock product_cat-veg-beef has-post-thumbnail shipping-taxable product-type-simple">
-<div class="product-wrapper">
-<div class="product-element-top wd-quick-shop">
-<a class="product-image-link" data-static-link="true" href="#products">
-<img alt="" class="attachment-large size-large" decoding="async" height="400" loading="lazy" sizes="(max-width: 500px) 100vw, 500px" src="images/vegetarian-steak.jpg" srcset="images/vegetarian-steak.jpg 500w, images/vegetarian-steak-150x120.jpg 150w, images/vegetarian-steak-300x240.jpg 300w" width="500"/> </a>
-<div class="hover-img">
-<a aria-label="Product image" data-static-link="true" href="#products">
-<img alt="" class="attachment-large size-large" decoding="async" height="643" loading="lazy" sizes="(max-width: 1024px) 100vw, 1024px" src="images/_-3_-LOGO-1024x643.jpg" srcset="images/_-3_-LOGO-1024x643.jpg 1024w, images/_-3_-LOGO-scaled-150x94.jpg 150w, images/_-3_-LOGO-scaled-600x377.jpg 600w, images/_-3_-LOGO-300x188.jpg 300w, images/_-3_-LOGO-768x482.jpg 768w, images/_-3_-LOGO-1536x964.jpg 1536w, images/_-3_-LOGO-2048x1286.jpg 2048w" width="1024"/> </a>
-</div>
-<div class="wd-buttons wd-pos-r-t">
-
-
-
-</div>
-</div>
-<div class="wd-product-header">
-<h3 class="wd-entities-title"><a data-static-link="true" href="#products">D094  Vege Steak</a></h3> </div>
-<div class="wd-product-cats">
-<a data-static-link="true" href="#products" rel="tag">Veg Beef</a> </div>
-<div class="wrap-price">
-<div class="swap-wrapp">
-<div class="swap-elements">
-
-</div>
-</div>
-</div>
-</div></div>
-</div>
-<div class="wd-carousel-item">
-<div class="wd-product wd-hover-alt product-grid-item product type-product post-806 status-publish first instock product_cat-veg-beef has-post-thumbnail shipping-taxable product-type-simple">
-<div class="product-wrapper">
-<div class="product-element-top wd-quick-shop">
-<a class="product-image-link" data-static-link="true" href="#products">
-<img alt="" class="attachment-large size-large" decoding="async" height="400" loading="lazy" sizes="(max-width: 500px) 100vw, 500px" src="images/filet-mignon.jpg" srcset="images/filet-mignon.jpg 500w, images/filet-mignon-150x120.jpg 150w, images/filet-mignon-300x240.jpg 300w" width="500"/> </a>
-<div class="wd-buttons wd-pos-r-t">
-
-
-
-</div>
-</div>
-<div class="wd-product-header">
-<h3 class="wd-entities-title"><a data-static-link="true" href="#products">D062 Vege Fillet Steak</a></h3> </div>
-<div class="wd-product-cats">
-<a data-static-link="true" href="#products" rel="tag">Veg Beef</a> </div>
-<div class="wrap-price">
-<div class="swap-wrapp">
-<div class="swap-elements">
-
-</div>
-</div>
-</div>
-</div></div>
-</div>
-<div class="wd-carousel-item">
-<div class="wd-product wd-hover-alt product-grid-item product type-product post-809 status-publish first instock product_cat-veg-beef has-post-thumbnail shipping-taxable product-type-simple">
-<div class="product-wrapper">
-<div class="product-element-top wd-quick-shop">
-<a class="product-image-link" data-static-link="true" href="#products">
-<img alt="" class="attachment-large size-large" decoding="async" height="400" loading="lazy" sizes="(max-width: 500px) 100vw, 500px" src="images/Black-pepper-veal-steak-with-sauce-packet.jpg" srcset="images/Black-pepper-veal-steak-with-sauce-packet.jpg 500w, images/Black-pepper-veal-steak-with-sauce-packet-150x120.jpg 150w, images/Black-pepper-veal-steak-with-sauce-packet-300x240.jpg 300w" width="500"/> </a>
-<div class="hover-img">
-<a aria-label="Product image" data-static-link="true" href="#products">
-<img alt="" class="attachment-large size-large" decoding="async" height="850" loading="lazy" sizes="(max-width: 780px) 100vw, 780px" src="images/_-1_-LOGO.jpg" srcset="images/_-1_-LOGO.jpg 780w, images/_-1_-LOGO-150x163.jpg 150w, images/_-1_-LOGO-600x654.jpg 600w, images/_-1_-LOGO-275x300.jpg 275w, images/_-1_-LOGO-768x837.jpg 768w" width="780"/> </a>
-</div>
-<div class="wd-buttons wd-pos-r-t">
-
-
-
-</div>
-</div>
-<div class="wd-product-header">
-<h3 class="wd-entities-title"><a data-static-link="true" href="#products">D095  Vege Black Pepper Steak (with sauce packet)</a></h3> </div>
-<div class="wd-product-cats">
-<a data-static-link="true" href="#products" rel="tag">Veg Beef</a> </div>
-<div class="wrap-price">
-<div class="swap-wrapp">
-<div class="swap-elements">
-
-</div>
-</div>
-</div>
-</div></div>
-</div>
-<div class="wd-carousel-item">
-<div class="wd-product wd-hover-alt product-grid-item product type-product post-816 status-publish first instock product_cat-vege-seafood has-post-thumbnail shipping-taxable product-type-simple">
-<div class="product-wrapper">
-<div class="product-element-top wd-quick-shop">
-<a class="product-image-link" data-static-link="true" href="#products">
-<img alt="" class="attachment-large size-large" decoding="async" height="400" loading="lazy" sizes="(max-width: 500px) 100vw, 500px" src="images/Local-fish-fillet.jpg" srcset="images/Local-fish-fillet.jpg 500w, images/Local-fish-fillet-150x120.jpg 150w, images/Local-fish-fillet-300x240.jpg 300w" width="500"/> </a>
-<div class="hover-img">
-<a aria-label="Product image" data-static-link="true" href="#products">
-<img alt="" class="attachment-large size-large" decoding="async" height="685" loading="lazy" sizes="(max-width: 1024px) 100vw, 1024px" src="images/_-_--2LOGO-1024x685.jpg" srcset="images/_-_--2LOGO-1024x685.jpg 1024w, images/_-_--2LOGO-scaled-150x100.jpg 150w, images/_-_--2LOGO-scaled-600x402.jpg 600w, images/_-_--2LOGO-300x201.jpg 300w, images/_-_--2LOGO-768x514.jpg 768w, images/_-_--2LOGO-1536x1028.jpg 1536w, images/_-_--2LOGO-2048x1371.jpg 2048w" width="1024"/> </a>
-</div>
-<div class="wd-buttons wd-pos-r-t">
-
-
-
-</div>
-</div>
-<div class="wd-product-header">
-<h3 class="wd-entities-title"><a data-static-link="true" href="#products">B062   Vege Tuna Roll</a></h3> </div>
-<div class="wd-product-cats">
-<a data-static-link="true" href="#products" rel="tag">Vege Seafood</a> </div>
-<div class="wrap-price">
-<div class="swap-wrapp">
-<div class="swap-elements">
-
-</div>
-</div>
-</div>
-</div></div>
-</div>
-<div class="wd-carousel-item">
-<div class="wd-product wd-hover-alt product-grid-item product type-product post-822 status-publish first instock product_cat-vege-seafood has-post-thumbnail shipping-taxable product-type-simple">
-<div class="product-wrapper">
-<div class="product-element-top wd-quick-shop">
-<a class="product-image-link" data-static-link="true" href="#products">
-<img alt="" class="attachment-large size-large" decoding="async" height="400" loading="lazy" sizes="(max-width: 500px) 100vw, 500px" src="images/Tasty-cod-steak.jpg" srcset="images/Tasty-cod-steak.jpg 500w, images/Tasty-cod-steak-150x120.jpg 150w, images/Tasty-cod-steak-300x240.jpg 300w" width="500"/> </a>
-<div class="wd-buttons wd-pos-r-t">
-
-
-
-</div>
-</div>
-<div class="wd-product-header">
-<h3 class="wd-entities-title"><a data-static-link="true" href="#products">C105   Vege Codfish Fillet</a></h3> </div>
-<div class="wd-product-cats">
-<a data-static-link="true" href="#products" rel="tag">Vege Seafood</a> </div>
-<div class="wrap-price">
-<div class="swap-wrapp">
-<div class="swap-elements">
-
-</div>
-</div>
-</div>
-</div></div>
-</div>
-<div class="wd-carousel-item">
-<div class="wd-product wd-hover-alt product-grid-item product type-product post-829 status-publish first instock product_cat-vege-chicken has-post-thumbnail shipping-taxable product-type-simple">
-<div class="product-wrapper">
-<div class="product-element-top wd-quick-shop">
-<a class="product-image-link" data-static-link="true" href="#products">
-<img alt="" class="attachment-large size-large" decoding="async" height="400" loading="lazy" sizes="(max-width: 500px) 100vw, 500px" src="images/New-Project-24.jpg" srcset="images/New-Project-24.jpg 500w, images/New-Project-24-150x120.jpg 150w, images/New-Project-24-300x240.jpg 300w" width="500"/> </a>
-<div class="hover-img">
-<a aria-label="Product image" data-static-link="true" href="#products">
-<img alt="" class="attachment-large size-large" decoding="async" height="643" loading="lazy" sizes="(max-width: 1024px) 100vw, 1024px" src="images/_-2_-_-_1000LOGO-1024x643.jpg" srcset="images/_-2_-_-_1000LOGO-1024x643.jpg 1024w, images/_-2_-_-_1000LOGO-scaled-150x94.jpg 150w, images/_-2_-_-_1000LOGO-scaled-600x377.jpg 600w, images/_-2_-_-_1000LOGO-300x188.jpg 300w, images/_-2_-_-_1000LOGO-768x482.jpg 768w, images/_-2_-_-_1000LOGO-1536x964.jpg 1536w, images/_-2_-_-_1000LOGO-2048x1286.jpg 2048w" width="1024"/> </a>
-</div>
-<div class="wd-buttons wd-pos-r-t">
-
-
-
-</div>
-</div>
-<div class="wd-product-header">
-<h3 class="wd-entities-title"><a data-static-link="true" href="#products">A078  Vege Taiwanese Chicken</a></h3> </div>
-<div class="wd-product-cats">
-<a data-static-link="true" href="#products" rel="tag">VEGE CHICKEN</a> </div>
-<div class="wrap-price">
-<div class="swap-wrapp">
-<div class="swap-elements">
-
-</div>
-</div>
-</div>
-</div></div>
-</div>
-<div class="wd-carousel-item">
-<div class="wd-product wd-hover-alt product-grid-item product type-product post-830 status-publish first instock product_cat-vege-seafood has-post-thumbnail shipping-taxable product-type-simple">
-<div class="product-wrapper">
-<div class="product-element-top wd-quick-shop">
-<a class="product-image-link" data-static-link="true" href="#products">
-<img alt="" class="attachment-large size-large" decoding="async" height="400" loading="lazy" sizes="(max-width: 500px) 100vw, 500px" src="images/New-Project-25.jpg" srcset="images/New-Project-25.jpg 500w, images/New-Project-25-150x120.jpg 150w, images/New-Project-25-300x240.jpg 300w" width="500"/> </a>
-<div class="hover-img">
-<a aria-label="Product image" data-static-link="true" href="#products">
-<img alt="" class="attachment-large size-large" decoding="async" height="684" loading="lazy" sizes="(max-width: 1024px) 100vw, 1024px" src="images/_-_--3LOGO-1024x684.jpg" srcset="images/_-_--3LOGO-1024x684.jpg 1024w, images/_-_--3LOGO-scaled-150x100.jpg 150w, images/_-_--3LOGO-scaled-600x401.jpg 600w, images/_-_--3LOGO-300x201.jpg 300w, images/_-_--3LOGO-768x513.jpg 768w, images/_-_--3LOGO-1536x1027.jpg 1536w, images/_-_--3LOGO-2048x1369.jpg 2048w" width="1024"/> </a>
-</div>
-<div class="wd-buttons wd-pos-r-t">
-
-
-
-</div>
-</div>
-<div class="wd-product-header">
-<h3 class="wd-entities-title"><a data-static-link="true" href="#products">G1472   Vege Supreme Fried Prawn</a></h3> </div>
-<div class="wd-product-cats">
-<a data-static-link="true" href="#products" rel="tag">Vege Seafood</a> </div>
-<div class="wrap-price">
-<div class="swap-wrapp">
-<div class="swap-elements">
-
-</div>
-</div>
-</div>
-</div></div>
-</div>
-<div class="wd-carousel-item">
-<div class="wd-product wd-hover-alt product-grid-item product type-product post-837 status-publish first instock product_cat-vege-seafood has-post-thumbnail shipping-taxable product-type-simple">
-<div class="product-wrapper">
-<div class="product-element-top wd-quick-shop">
-<a class="product-image-link" data-static-link="true" href="#products">
-<img alt="" class="attachment-large size-large" decoding="async" height="400" loading="lazy" sizes="(max-width: 500px) 100vw, 500px" src="images/Dairy-free-egg-native-fish-fillet.jpg" srcset="images/Dairy-free-egg-native-fish-fillet.jpg 500w, images/Dairy-free-egg-native-fish-fillet-150x120.jpg 150w, images/Dairy-free-egg-native-fish-fillet-300x240.jpg 300w" width="500"/> </a>
-<div class="hover-img">
-<a aria-label="Product image" data-static-link="true" href="#products">
-<img alt="" class="attachment-large size-large" decoding="async" height="846" loading="lazy" sizes="(max-width: 1024px) 100vw, 1024px" src="images/_-_--1LOGO-1-1024x846.jpg" srcset="images/_-_--1LOGO-1-1024x846.jpg 1024w, images/_-_--1LOGO-1-150x124.jpg 150w, images/_-_--1LOGO-1-600x495.jpg 600w, images/_-_--1LOGO-1-300x248.jpg 300w, images/_-_--1LOGO-1-768x634.jpg 768w, images/_-_--1LOGO-1-1536x1268.jpg 1536w, images/_-_--1LOGO-1-2048x1691.jpg 2048w" width="1024"/> </a>
-</div>
-<div class="wd-buttons wd-pos-r-t">
-
-
-
-</div>
-</div>
-<div class="wd-product-header">
-<h3 class="wd-entities-title"><a data-static-link="true" href="#products">B062V   Vegan Tuna Roll</a></h3> </div>
-<div class="wd-product-cats">
-<a data-static-link="true" href="#products" rel="tag">Vege Seafood</a> </div>
-<div class="wrap-price">
-<div class="swap-wrapp">
-<div class="swap-elements">
-
-</div>
-</div>
-</div>
-</div></div>
-</div>
-</div>
-</div>
-<div class="wd-nav-arrows wd-pos-sep wd-hover-1 wd-icon-1">
-<div class="wd-btn-arrow wd-prev wd-disabled">
-<div class="wd-arrow-inner"></div>
-</div>
-<div class="wd-btn-arrow wd-next">
-<div class="wd-arrow-inner"></div>
-</div>
-</div>
-</div>
-</div><!-- end #carousel-528 -->
-</div>
-</div>
-<div class="elementor-element elementor-element-7fe2295 elementor-align-center elementor-widget elementor-widget-button">
-<div class="elementor-widget-container">
-<div class="elementor-button-wrapper">
-<a class="elementor-button elementor-button-link elementor-size-sm" data-static-link="true" href="#products">
-<span class="elementor-button-content-wrapper">
-<span class="elementor-button-icon">
-<svg fill="none" height="19" viewbox="0 0 18 19" width="18" xmlns="http://www.w3.org/2000/svg"><path d="M9.97505 1.45471L16.5205 9.63653M16.5205 9.63653L9.97505 17.8183M16.5205 9.63653L1.61142 9.63653" stroke="#121212" stroke-linecap="round" stroke-linejoin="round" stroke-width="1.63636"></path></svg> </span>
-<span class="elementor-button-text">View all Items</span>
-</span>
-</a>
-</div>
-</div>
-</div>
-</div>
-</div>
-</div>
-</section>
-<section class="elementor-section elementor-inner-section elementor-element elementor-element-ebf1038 productscst elementor-section-boxed elementor-section-height-default elementor-section-height-default elementor-invisible">
-<div class="elementor-container elementor-column-gap-default">
-<div class="elementor-column elementor-col-100 elementor-inner-column elementor-element elementor-element-204854f">
-<div class="elementor-widget-wrap elementor-element-populated">
-<div class="elementor-element elementor-element-ecd2cca elementor-widget elementor-widget-heading">
-<div class="elementor-widget-container" id="gallery">
-<h2 class="elementor-heading-title elementor-size-default">Gallery</h2> </div>
-</div>
-<div class="elementor-element elementor-element-06b4c07 elementor-widget elementor-widget-heading">
-<div class="elementor-widget-container">
-<h2 class="elementor-heading-title elementor-size-default">Our Photos</h2> </div>
-</div>
-</div>
-</div>
-</div>
-</section>
-<section class="elementor-section elementor-inner-section elementor-element elementor-element-807a4c5 elementor-section-full_width wd-section-stretch-content productscst elementor-section-height-default elementor-section-height-default elementor-invisible">
-<div class="elementor-container elementor-column-gap-default">
-<div class="elementor-column elementor-col-100 elementor-inner-column elementor-element elementor-element-0cf18f7">
-<div class="elementor-widget-wrap elementor-element-populated">
-<div class="elementor-element elementor-element-8ef5dc0 wd-width-100 elementor-widget elementor-widget-wd_images_gallery">
-<div class="elementor-widget-container">
-<div class="wd-images-gallery photoswipe-images wd-carousel-container" style="--wd-align-items:center; --wd-justify-content:center;">
-<div class="wd-carousel-inner">
-<div class="wd-carousel wd-grid" style="--wd-col-lg:5;--wd-col-md:4;--wd-col-sm:2;--wd-gap-lg:10px;">
-<div class="wd-carousel-wrap">
-<div class="wd-gallery-item wd-carousel-item">
-<a data-static-link="true" href="#top">
-<img alt="image - 2024-08-05T211212.687" decoding="async" src="images/image-2024-08-05T211212.687.jpg"/>
-</a>
-</div>
-<div class="wd-gallery-item wd-carousel-item">
-<a data-static-link="true" href="#top">
-<img alt="image - 2024-08-05T211244.944" decoding="async" src="images/image-2024-08-05T211244.944.jpg"/>
-</a>
-</div>
-<div class="wd-gallery-item wd-carousel-item">
-<a data-static-link="true" href="#top">
-<img alt="image - 2024-08-05T211300.024" decoding="async" src="images/image-2024-08-05T211300.024.jpg"/>
-</a>
-</div>
-<div class="wd-gallery-item wd-carousel-item">
-<a data-static-link="true" href="#top">
-<img alt="image - 2024-08-05T211314.897" decoding="async" src="images/image-2024-08-05T211314.897.jpg"/>
-</a>
-</div>
-<div class="wd-gallery-item wd-carousel-item">
-<a data-static-link="true" href="#top">
-<img alt="image - 2024-08-05T211330.745" decoding="async" src="images/image-2024-08-05T211330.745.jpg"/>
-</a>
-</div>
-<div class="wd-gallery-item wd-carousel-item">
-<a data-static-link="true" href="#top">
-<img alt="image - 2024-08-05T211345.177" decoding="async" src="images/image-2024-08-05T211345.177.jpg"/>
-</a>
-</div>
-<div class="wd-gallery-item wd-carousel-item">
-<a data-static-link="true" href="#top">
-<img alt="image - 2024-08-05T211413.177" decoding="async" src="images/image-2024-08-05T211413.177.jpg"/>
-</a>
-</div>
-<div class="wd-gallery-item wd-carousel-item">
-<a data-static-link="true" href="#top">
-<img alt="image - 2024-08-05T211431.746" decoding="async" src="images/image-2024-08-05T211431.746.jpg"/>
-</a>
-</div>
-<div class="wd-gallery-item wd-carousel-item">
-<a data-static-link="true" href="#top">
-<img alt="image - 2024-08-05T211525.065" decoding="async" src="images/image-2024-08-05T211525.065.jpg"/>
-</a>
-</div>
-<div class="wd-gallery-item wd-carousel-item">
-<a data-static-link="true" href="#top">
-<img alt="image - 2024-08-05T211547.145" decoding="async" src="images/image-2024-08-05T211547.145.jpg"/>
-</a>
-</div>
-<div class="wd-gallery-item wd-carousel-item">
-<a data-static-link="true" href="#top">
-<img alt="image - 2024-08-05T211602.723" decoding="async" src="images/image-2024-08-05T211602.723.jpg"/>
-</a>
-</div>
-<div class="wd-gallery-item wd-carousel-item">
-<a data-static-link="true" href="#top">
-<img alt="image - 2024-08-05T211623.146" decoding="async" src="images/image-2024-08-05T211623.146.jpg"/>
-</a>
-</div>
-<div class="wd-gallery-item wd-carousel-item">
-<a data-static-link="true" href="#top">
-<img alt="image - 2024-08-05T211637.459" decoding="async" src="images/image-2024-08-05T211637.459.jpg"/>
-</a>
-</div>
-<div class="wd-gallery-item wd-carousel-item">
-<a data-static-link="true" href="#top">
-<img alt="image - 2024-08-05T211652.338" decoding="async" src="images/image-2024-08-05T211652.338.jpg"/>
-</a>
-</div>
-<div class="wd-gallery-item wd-carousel-item">
-<a data-static-link="true" href="#top">
-<img alt="image - 2024-08-05T211712.898" decoding="async" src="images/image-2024-08-05T211712.898.jpg"/>
-</a>
-</div>
-<div class="wd-gallery-item wd-carousel-item">
-<a data-static-link="true" href="#top">
-<img alt="image - 2024-08-05T211722.650" decoding="async" src="images/image-2024-08-05T211722.650.jpg"/>
-</a>
-</div>
-<div class="wd-gallery-item wd-carousel-item">
-<a data-static-link="true" href="#top">
-<img alt="D164V   Vegan Calamari Rings" decoding="async" src="images/image-2024-08-05T211739.084.jpg"/>
-</a>
-</div>
-<div class="wd-gallery-item wd-carousel-item">
-<a data-static-link="true" href="#top">
-<img alt="image - 2024-08-05T211749.620" decoding="async" src="images/image-2024-08-05T211749.620.jpg"/>
-</a>
-</div>
-<div class="wd-gallery-item wd-carousel-item">
-<a data-static-link="true" href="#top">
-<img alt="image - 2024-08-05T211759.043" decoding="async" src="images/image-2024-08-05T211759.043.jpg"/>
-</a>
-</div>
-<div class="wd-gallery-item wd-carousel-item">
-<a data-static-link="true" href="#top">
-<img alt="image - 2024-08-05T211811.716" decoding="async" src="images/image-2024-08-05T211811.716.jpg"/>
-</a>
-</div>
-<div class="wd-gallery-item wd-carousel-item">
-<a data-static-link="true" href="#top">
-<img alt="image - 2024-08-05T211825.291" decoding="async" src="images/image-2024-08-05T211825.291.jpg"/>
-</a>
-</div>
-<div class="wd-gallery-item wd-carousel-item">
-<a data-static-link="true" href="#top">
-<img alt="image - 2024-08-05T211837.324" decoding="async" src="images/image-2024-08-05T211837.324.jpg"/>
-</a>
-</div>
-<div class="wd-gallery-item wd-carousel-item">
-<a data-static-link="true" href="#top">
-<img alt="image - 2024-08-05T211845.701" decoding="async" src="images/image-2024-08-05T211845.701.jpg"/>
-</a>
-</div>
-<div class="wd-gallery-item wd-carousel-item">
-<a data-static-link="true" href="#top">
-<img alt="image - 2024-08-05T211905.052" decoding="async" src="images/image-2024-08-05T211905.052.jpg"/>
-</a>
-</div>
-<div class="wd-gallery-item wd-carousel-item">
-<a data-static-link="true" href="#top">
-<img alt="image - 2024-08-05T211916.925" decoding="async" src="images/image-2024-08-05T211916.925.jpg"/>
-</a>
-</div>
-<div class="wd-gallery-item wd-carousel-item">
-<a data-static-link="true" href="#top">
-<img alt="image - 2024-08-05T211928.301" decoding="async" src="images/image-2024-08-05T211928.301.jpg"/>
-</a>
-</div>
-<div class="wd-gallery-item wd-carousel-item">
-<a data-static-link="true" href="#top">
-<img alt="image - 2024-08-05T211937.053" decoding="async" src="images/image-2024-08-05T211937.053.jpg"/>
-</a>
-</div>
-<div class="wd-gallery-item wd-carousel-item">
-<a data-static-link="true" href="#top">
-<img alt="image - 2024-08-05T211945.044" decoding="async" src="images/image-2024-08-05T211945.044.jpg"/>
-</a>
-</div>
-<div class="wd-gallery-item wd-carousel-item">
-<a data-static-link="true" href="#top">
-<img alt="image - 2024-08-05T211959.669" decoding="async" src="images/image-2024-08-05T211959.669.jpg"/>
-</a>
-</div>
-<div class="wd-gallery-item wd-carousel-item">
-<a data-static-link="true" href="#top">
-<img alt="image - 2024-08-05T212023.543" decoding="async" src="images/image-2024-08-05T212023.543.jpg"/>
-</a>
-</div>
-<div class="wd-gallery-item wd-carousel-item">
-<a data-static-link="true" href="#top">
-<img alt="image - 2024-08-05T212037.806" decoding="async" src="images/image-2024-08-05T212037.806.jpg"/>
-</a>
-</div>
-<div class="wd-gallery-item wd-carousel-item">
-<a data-static-link="true" href="#top">
-<img alt="image - 2024-08-05T212051.406" decoding="async" src="images/image-2024-08-05T212051.406.jpg"/>
-</a>
-</div>
-<div class="wd-gallery-item wd-carousel-item">
-<a data-static-link="true" href="#top">
-<img alt="image - 2024-08-05T212106.894" decoding="async" src="images/image-2024-08-05T212106.894.jpg"/>
-</a>
-</div>
-<div class="wd-gallery-item wd-carousel-item">
-<a data-static-link="true" href="#top">
-<img alt="image - 2024-08-05T212124.206" decoding="async" src="images/image-2024-08-05T212124.206.jpg"/>
-</a>
-</div>
-<div class="wd-gallery-item wd-carousel-item">
-<a data-static-link="true" href="#top">
-<img alt="image - 2024-08-05T212149.974" decoding="async" src="images/image-2024-08-05T212149.974.jpg"/>
-</a>
-</div>
-<div class="wd-gallery-item wd-carousel-item">
-<a data-static-link="true" href="#top">
-<img alt="image - 2024-08-05T212223.334" decoding="async" src="images/image-2024-08-05T212223.334.jpg"/>
-</a>
-</div>
-<div class="wd-gallery-item wd-carousel-item">
-<a data-static-link="true" href="#top">
-<img alt="image - 2024-08-05T212237.718" decoding="async" src="images/image-2024-08-05T212237.718.jpg"/>
-</a>
-</div>
-<div class="wd-gallery-item wd-carousel-item">
-<a data-static-link="true" href="#top">
-<img alt="image - 2024-08-05T212255.366" decoding="async" src="images/image-2024-08-05T212255.366.jpg"/>
-</a>
-</div>
-</div>
-</div>
-<div class="wd-nav-arrows wd-pos-sep wd-hover-1 wd-icon-1">
-<div class="wd-btn-arrow wd-prev wd-disabled">
-<div class="wd-arrow-inner"></div>
-</div>
-<div class="wd-btn-arrow wd-next">
-<div class="wd-arrow-inner"></div>
-</div>
-</div>
-</div>
-</div>
-</div>
-</div>
-</div>
-</div>
-</div>
-</section>
-</div>
-</div>
-</div>
-</section>
-<section class="elementor-section elementor-top-section elementor-element elementor-element-7af1d7e wd-section-stretch-content elementor-section-full_width elementor-section-height-default elementor-section-height-default">
-<div class="elementor-container elementor-column-gap-default">
-<div class="elementor-column elementor-col-50 elementor-top-column elementor-element elementor-element-6630bbf elementor-invisible">
-<div class="elementor-widget-wrap elementor-element-populated">
-<div class="elementor-element elementor-element-3955b4c elementor-widget elementor-widget-image">
-<div class="elementor-widget-container">
-<img alt="" decoding="async" loading="lazy" src="images/Amida-photo-1-scaled.jpg" title=""> </img></div>
-</div>
-</div>
-</div>
-<div class="elementor-column elementor-col-50 elementor-top-column elementor-element elementor-element-3224dcb elementor-invisible">
-<div class="elementor-widget-wrap elementor-element-populated">
-<section class="elementor-section elementor-inner-section elementor-element elementor-element-7755244 elementor-section-boxed elementor-section-height-default elementor-section-height-default">
-<div class="elementor-container elementor-column-gap-default">
-<div class="elementor-column elementor-col-100 elementor-inner-column elementor-element elementor-element-2c6109f">
-<div class="elementor-widget-wrap elementor-element-populated">
-<div class="elementor-element elementor-element-a83f7fe elementor-widget elementor-widget-heading">
-<div class="elementor-widget-container" id="testimonials">
-<h2 class="elementor-heading-title elementor-size-default">Testimonial</h2> </div>
-</div>
-</div>
-</div>
-</div>
-</section>
-<div class="elementor-element elementor-element-fe1037a elementor-widget elementor-widget-heading">
-<div class="elementor-widget-container">
-<span class="elementor-heading-title elementor-size-default"><span style="font-family: Raleway, sans-serif;font-size: 50px;font-style: normal;font-weight: 700;text-align: center">What Our</span><br/><span style="font-family: Raleway, sans-serif;font-size: 50px;font-style: normal;font-weight: 700;text-align: center">Client's Say</span><br/></span> </div>
-</div>
-<div class="elementor-element elementor-element-8881b48 elementor-widget__width-initial elementor-widget elementor-widget-wd_testimonials">
-<div class="elementor-widget-container">
-<div class="testimonials testimon-style-boxed color-scheme- testimon-with-rating testimon-align-center wd-carousel-container" id="carousel-2286">
-<div class="wd-carousel-inner">
-<div class="wd-carousel wd-grid scroll-init" style="--wd-col-lg:1;--wd-col-md:1;--wd-col-sm:1;--wd-gap-lg:30px;--wd-gap-sm:10px;--wd-carousel-overflow: visible">
-<div class="wd-carousel-wrap">
-<div class="testimonial wd-carousel-item">
-<div class="testimonial-inner">
-<div class="testimonial-avatar">
-<img class="testimonial-avatar-image" decoding="async" src="images/Ellipse-128.png"/> </div>
-<div class="testimonial-content">
-<div class="testimonial-rating">
-<span class="star-rating">
-<span style="width:100%"></span>
-</span>
-</div>
-<p style="text-align: left;">Final dine out in California, though I wish to be a part of this city..... Nonetheless, Ordered, The new items in the menu Vege Chicken chunk kabab and special they mix of  Vege Chicken and Vege Lamb with special aromatic Ingrediants, it's really maindblowing, the  kabab. wow. its very fantastic flavors are so nice ..Am delighted. Thnx for making my last dinner a memorable one Paradise.</p>
-
-</div>
-</div>
-</div>
-</div>
-</div>
-</div>
-</div>
-</div>
-</div>
-</div>
-</div>
-</div>
-</section>
-<section class="elementor-section elementor-top-section elementor-element elementor-element-dd6dcd2 wd-section-stretch elementor-hidden-desktop elementor-hidden-tablet elementor-hidden-mobile elementor-section-boxed elementor-section-height-default elementor-section-height-default elementor-invisible">
-<div class="elementor-container elementor-column-gap-default">
-<div class="elementor-column elementor-col-33 elementor-top-column elementor-element elementor-element-a3307e3">
-<div class="elementor-widget-wrap elementor-element-populated">
-<section class="elementor-section elementor-inner-section elementor-element elementor-element-75060ec elementor-section-boxed elementor-section-height-default elementor-section-height-default">
-<div class="elementor-container elementor-column-gap-default">
-<div class="elementor-column elementor-col-100 elementor-inner-column elementor-element elementor-element-9b80d99">
-<div class="elementor-widget-wrap elementor-element-populated">
-<section class="elementor-section elementor-inner-section elementor-element elementor-element-e14c0a3 elementor-section-boxed elementor-section-height-default elementor-section-height-default">
-<div class="elementor-container elementor-column-gap-default">
-<div class="elementor-column elementor-col-50 elementor-inner-column elementor-element elementor-element-cdc788a">
-<div class="elementor-widget-wrap elementor-element-populated">
-<div class="elementor-element elementor-element-1fe0a9b elementor-widget elementor-widget-heading">
-<div class="elementor-widget-container">
-<h2 class="elementor-heading-title elementor-size-default">The standard Lorem Ipsum passage, used since the 1500s</h2> </div>
-</div>
-<div class="elementor-element elementor-element-7f4937a color-scheme-inherit text-left elementor-widget elementor-widget-text-editor">
-<div class="elementor-widget-container">
-							It is a long established fact that a reader will be distracted by the readable.						</div>
-</div>
-</div>
-</div>
-<div class="elementor-column elementor-col-50 elementor-inner-column elementor-element elementor-element-e95ab54">
-<div class="elementor-widget-wrap">
-</div>
-</div>
-</div>
-</section>
-</div>
-</div>
-</div>
-</section>
-<section class="elementor-section elementor-inner-section elementor-element elementor-element-5302891 elementor-section-boxed elementor-section-height-default elementor-section-height-default">
-<div class="elementor-container elementor-column-gap-default">
-<div class="elementor-column elementor-col-100 elementor-inner-column elementor-element elementor-element-a1db75f">
-<div class="elementor-widget-wrap elementor-element-populated">
-<section class="elementor-section elementor-inner-section elementor-element elementor-element-41c12b3 elementor-section-boxed elementor-section-height-default elementor-section-height-default">
-<div class="elementor-container elementor-column-gap-default">
-<div class="elementor-column elementor-col-100 elementor-inner-column elementor-element elementor-element-03e741c">
-<div class="elementor-widget-wrap elementor-element-populated">
-<section class="elementor-section elementor-inner-section elementor-element elementor-element-6fc8ac5 elementor-section-content-bottom elementor-section-boxed elementor-section-height-default elementor-section-height-default">
-<div class="elementor-container elementor-column-gap-default">
-<div class="elementor-column elementor-col-50 elementor-inner-column elementor-element elementor-element-305b22b">
-<div class="elementor-widget-wrap elementor-element-populated">
-<div class="elementor-element elementor-element-73b9125 elementor-widget elementor-widget-heading">
-<div class="elementor-widget-container">
-<h2 class="elementor-heading-title elementor-size-default">The standard Lorem Ipsum passage, used since the 1500s</h2> </div>
-</div>
-<div class="elementor-element elementor-element-60bbba4 color-scheme-inherit text-left elementor-widget elementor-widget-text-editor">
-<div class="elementor-widget-container">
-							It is a long established fact that a reader will be distracted by the readable.						</div>
-</div>
-</div>
-</div>
-<div class="elementor-column elementor-col-50 elementor-inner-column elementor-element elementor-element-9d012f1">
-<div class="elementor-widget-wrap">
-</div>
-</div>
-</div>
-</section>
-</div>
-</div>
-</div>
-</section>
-</div>
-</div>
-</div>
-</section>
-</div>
-</div>
-<div class="elementor-column elementor-col-33 elementor-top-column elementor-element elementor-element-828a61f">
-<div class="elementor-widget-wrap elementor-element-populated">
-<section class="elementor-section elementor-inner-section elementor-element elementor-element-7e86cbc elementor-section-boxed elementor-section-height-default elementor-section-height-default">
-<div class="elementor-container elementor-column-gap-default">
-<div class="elementor-column elementor-col-50 elementor-inner-column elementor-element elementor-element-a57c288">
-<div class="elementor-widget-wrap elementor-element-populated">
-<div class="elementor-element elementor-element-7533eca elementor-widget elementor-widget-heading">
-<div class="elementor-widget-container">
-<h2 class="elementor-heading-title elementor-size-default">The standard Lorem Ipsum passage, used since the 1500s</h2> </div>
-</div>
-<div class="elementor-element elementor-element-ccde8a3 color-scheme-inherit text-left elementor-widget elementor-widget-text-editor">
-<div class="elementor-widget-container">
-							It is a long established fact that a reader will be distracted by the readable.						</div>
-</div>
-<div class="elementor-element elementor-element-372f805 elementor-align-left elementor-widget elementor-widget-button">
-<div class="elementor-widget-container">
-<div class="elementor-button-wrapper">
-<a class="elementor-button elementor-button-link elementor-size-sm" data-static-link="true" href="#products">
-<span class="elementor-button-content-wrapper">
-<span class="elementor-button-icon">
-<svg fill="none" height="19" viewbox="0 0 18 19" width="18" xmlns="http://www.w3.org/2000/svg"><path d="M9.97505 1.45471L16.5205 9.63653M16.5205 9.63653L9.97505 17.8183M16.5205 9.63653L1.61142 9.63653" stroke="#121212" stroke-linecap="round" stroke-linejoin="round" stroke-width="1.63636"></path></svg> </span>
-<span class="elementor-button-text">View all Items</span>
-</span>
-</a>
-</div>
-</div>
-</div>
-</div>
-</div>
-<div class="elementor-column elementor-col-50 elementor-inner-column elementor-element elementor-element-3e3e429">
-<div class="elementor-widget-wrap">
-</div>
-</div>
-</div>
-</section>
-</div>
-</div>
-<div class="elementor-column elementor-col-33 elementor-top-column elementor-element elementor-element-22bcac0">
-<div class="elementor-widget-wrap elementor-element-populated">
-<section class="elementor-section elementor-inner-section elementor-element elementor-element-7920ec9 elementor-section-boxed elementor-section-height-default elementor-section-height-default">
-<div class="elementor-container elementor-column-gap-default">
-<div class="elementor-column elementor-col-100 elementor-inner-column elementor-element elementor-element-6b0cabf">
-<div class="elementor-widget-wrap elementor-element-populated">
-<section class="elementor-section elementor-inner-section elementor-element elementor-element-5293c8a elementor-section-boxed elementor-section-height-default elementor-section-height-default">
-<div class="elementor-container elementor-column-gap-default">
-<div class="elementor-column elementor-col-50 elementor-inner-column elementor-element elementor-element-39770a0">
-<div class="elementor-widget-wrap">
-</div>
-</div>
-<div class="elementor-column elementor-col-50 elementor-inner-column elementor-element elementor-element-b97b390">
-<div class="elementor-widget-wrap elementor-element-populated">
-<div class="elementor-element elementor-element-5148c97 elementor-widget elementor-widget-heading">
-<div class="elementor-widget-container">
-<h2 class="elementor-heading-title elementor-size-default">The standard Lorem Ipsum passage, used since the 1500s</h2> </div>
-</div>
-<div class="elementor-element elementor-element-c4cdb19 color-scheme-inherit text-left elementor-widget elementor-widget-text-editor">
-<div class="elementor-widget-container">
-							It is a long established fact that a reader will be distracted by the readable.						</div>
-</div>
-</div>
-</div>
-</div>
-</section>
-</div>
-</div>
-</div>
-</section>
-<section class="elementor-section elementor-inner-section elementor-element elementor-element-8b279b9 elementor-section-boxed elementor-section-height-default elementor-section-height-default">
-<div class="elementor-container elementor-column-gap-default">
-<div class="elementor-column elementor-col-100 elementor-inner-column elementor-element elementor-element-cf5d802">
-<div class="elementor-widget-wrap elementor-element-populated">
-<section class="elementor-section elementor-inner-section elementor-element elementor-element-0193801 elementor-section-boxed elementor-section-height-default elementor-section-height-default">
-<div class="elementor-container elementor-column-gap-default">
-<div class="elementor-column elementor-col-100 elementor-inner-column elementor-element elementor-element-1b3361a">
-<div class="elementor-widget-wrap elementor-element-populated">
-<section class="elementor-section elementor-inner-section elementor-element elementor-element-5833168 elementor-section-content-bottom elementor-section-boxed elementor-section-height-default elementor-section-height-default">
-<div class="elementor-container elementor-column-gap-default">
-<div class="elementor-column elementor-col-50 elementor-inner-column elementor-element elementor-element-247826c">
-<div class="elementor-widget-wrap">
-</div>
-</div>
-<div class="elementor-column elementor-col-50 elementor-inner-column elementor-element elementor-element-c128597">
-<div class="elementor-widget-wrap elementor-element-populated">
-<div class="elementor-element elementor-element-de59ea7 elementor-widget elementor-widget-heading">
-<div class="elementor-widget-container">
-<h2 class="elementor-heading-title elementor-size-default">The standard Lorem Ipsum passage, used since the 1500s</h2> </div>
-</div>
-<div class="elementor-element elementor-element-a985916 color-scheme-inherit text-left elementor-widget elementor-widget-text-editor">
-<div class="elementor-widget-container">
-							It is a long established fact that a reader will be distracted by the readable.						</div>
-</div>
-</div>
-</div>
-</div>
-</section>
-</div>
-</div>
-</div>
-</section>
-</div>
-</div>
-</div>
-</section>
-</div>
-</div>
-</div>
-</section>
-<section class="elementor-section elementor-top-section elementor-element elementor-element-f42ca7a wd-section-stretch elementor-section-boxed elementor-section-height-default elementor-section-height-default elementor-invisible">
-<div class="elementor-container elementor-column-gap-default">
-<div class="elementor-column elementor-col-50 elementor-top-column elementor-element elementor-element-b2f17ac">
-<div class="elementor-widget-wrap elementor-element-populated">
-<div class="elementor-element elementor-element-26a7dcc elementor-widget elementor-widget-image">
-<div class="elementor-widget-container">
-<img alt="" class="attachment-full size-full wp-image-1124" decoding="async" height="400" loading="lazy" sizes="(max-width: 500px) 100vw, 500px" src="images/New-Project-32.jpg" srcset="images/New-Project-32.jpg 500w, images/New-Project-32-150x120.jpg 150w, images/New-Project-32-300x240.jpg 300w" width="500"> </img></div>
-</div>
-</div>
-</div>
-<div class="elementor-column elementor-col-50 elementor-top-column elementor-element elementor-element-e754567">
-<div class="elementor-widget-wrap elementor-element-populated">
-<div class="elementor-element elementor-element-21bb189 elementor-widget elementor-widget-heading">
-<div class="elementor-widget-container" id="contact">
-<h2 class="elementor-heading-title elementor-size-default">Contact</h2> </div>
-</div>
-<div class="elementor-element elementor-element-4b4f019 elementor-widget elementor-widget-heading">
-<div class="elementor-widget-container">
-<h2 class="elementor-heading-title elementor-size-default">Contact Us</h2> </div>
-</div>
-<div class="elementor-element elementor-element-fe83cc5 conformcst elementor-widget elementor-widget-shortcode">
-<div class="elementor-widget-container">
-<div class="elementor-shortcode">[gravityform id="1" title="false"]</div>
-</div>
-</div>
-<section class="elementor-section elementor-inner-section elementor-element elementor-element-1280f89 elementor-section-boxed elementor-section-height-default elementor-section-height-default">
-<div class="elementor-container elementor-column-gap-default">
-<div class="elementor-column elementor-col-100 elementor-inner-column elementor-element elementor-element-a27b8b3">
-<div class="elementor-widget-wrap elementor-element-populated">
-<section class="elementor-section elementor-inner-section elementor-element elementor-element-11cc07d elementor-section-boxed elementor-section-height-default elementor-section-height-default">
-<div class="elementor-container elementor-column-gap-default">
-<div class="elementor-column elementor-col-50 elementor-inner-column elementor-element elementor-element-8c108aa">
-<div class="elementor-widget-wrap elementor-element-populated">
-<div class="elementor-element elementor-element-6d390c6 elementor-widget elementor-widget-heading">
-<div class="elementor-widget-container">
-<h2 class="elementor-heading-title elementor-size-default">Address</h2> </div>
-</div>
-</div>
-</div>
-<div class="elementor-column elementor-col-50 elementor-inner-column elementor-element elementor-element-01defba">
-<div class="elementor-widget-wrap elementor-element-populated">
-<div class="elementor-element elementor-element-1e01557 elementor-widget elementor-widget-image">
-<div class="elementor-widget-container">
-<img alt="" class="attachment-large size-large wp-image-456" decoding="async" height="1" loading="lazy" sizes="(max-width: 180px) 100vw, 180px" src="images/Line-2-1.png" srcset="images/Line-2-1.png 180w, images/Line-2-1-150x1.png 150w" width="180"> </img></div>
-</div>
-</div>
-</div>
-</div>
-</section>
-<section class="elementor-section elementor-inner-section elementor-element elementor-element-2e9b59c elementor-section-boxed elementor-section-height-default elementor-section-height-default">
-<div class="elementor-container elementor-column-gap-default">
-<div class="elementor-column elementor-col-100 elementor-inner-column elementor-element elementor-element-5ff1380">
-<div class="elementor-widget-wrap elementor-element-populated">
-<div class="elementor-element elementor-element-d9536bd elementor-mobile-align-center elementor-icon-list--layout-traditional elementor-list-item-link-full_width elementor-widget elementor-widget-icon-list">
-<div class="elementor-widget-container">
-<ul class="elementor-icon-list-items">
-<li class="elementor-icon-list-item">
-<a href="https://www.google.com/maps/place/750+S+Stimson+Ave,+City+of+Industry,+CA+91745,+USA/data=!4m2!3m1!1s0x80c2d5dc241d17bb:0x58444877b16ce849?sa=X&amp;ved=1t:242&amp;ictx=111">
-<span class="elementor-icon-list-icon">
-<svg fill="none" height="28" viewbox="0 0 22 28" width="22" xmlns="http://www.w3.org/2000/svg"><path d="M11 16C10.0111 16 9.0444 15.7068 8.22215 15.1574C7.39991 14.6079 6.75904 13.8271 6.3806 12.9134C6.00217 11.9998 5.90315 10.9945 6.09608 10.0246C6.289 9.05465 6.76521 8.16373 7.46447 7.46447C8.16373 6.76521 9.05465 6.289 10.0246 6.09608C10.9945 5.90315 11.9998 6.00217 12.9134 6.3806C13.8271 6.75904 14.6079 7.39991 15.1574 8.22215C15.7068 9.0444 16 10.0111 16 11C15.9984 12.3256 15.4711 13.5964 14.5338 14.5338C13.5964 15.4711 12.3256 15.9984 11 16ZM11 8C10.4067 8 9.82664 8.17595 9.33329 8.50559C8.83994 8.83524 8.45543 9.30377 8.22836 9.85195C8.0013 10.4001 7.94189 11.0033 8.05765 11.5853C8.1734 12.1672 8.45912 12.7018 8.87868 13.1213C9.29824 13.5409 9.83279 13.8266 10.4147 13.9424C10.9967 14.0581 11.5999 13.9987 12.1481 13.7716C12.6962 13.5446 13.1648 13.1601 13.4944 12.6667C13.8241 12.1734 14 11.5933 14 11C13.9992 10.2046 13.6829 9.442 13.1204 8.87956C12.558 8.31712 11.7954 8.0008 11 8Z" fill="#EFAD32"></path><path d="M11 28L2.56401 18.051C2.44679 17.9016 2.33079 17.7513 2.21601 17.6C0.774992 15.7018 -0.00348119 13.3832 1.17029e-05 11C1.17029e-05 8.08262 1.15894 5.28473 3.22184 3.22183C5.28474 1.15893 8.08263 0 11 0C13.9174 0 16.7153 1.15893 18.7782 3.22183C20.8411 5.28473 22 8.08262 22 11C22.0035 13.3821 21.2254 15.6996 19.785 17.597L19.784 17.6C19.784 17.6 19.484 17.994 19.439 18.047L11 28ZM3.81201 16.395C3.81401 16.395 4.04601 16.703 4.09901 16.769L11 24.908L17.91 16.758C17.954 16.703 18.189 16.392 18.189 16.392C19.3662 14.8411 20.0023 12.947 20 11C20 8.61305 19.0518 6.32387 17.364 4.63604C15.6761 2.94821 13.387 2 11 2C8.61306 2 6.32388 2.94821 4.63605 4.63604C2.94822 6.32387 2.00001 8.61305 2.00001 11C1.99791 12.9482 2.63379 14.8434 3.81201 16.395Z" fill="#EFAD32"></path></svg> </span>
-<span class="elementor-icon-list-text">750 S. Stimson Ave., City of Industry, CA 91745</span>
-</a>
-</li>
-<li class="elementor-icon-list-item">
-<a href="mailto:Sales@amidafoodusa.com">
-<span class="elementor-icon-list-icon">
-<svg fill="none" height="22" viewbox="0 0 28 22" width="28" xmlns="http://www.w3.org/2000/svg"><path d="M2.8 22C2.03 22 1.3706 21.7305 0.821802 21.1915C0.273002 20.6525 -0.000930956 20.0053 2.37691e-06 19.25V2.75C2.37691e-06 1.99375 0.274402 1.34613 0.823202 0.807127C1.372 0.268127 2.03094 -0.000914332 2.8 2.33447e-06H25.2C25.97 2.33447e-06 26.6294 0.269502 27.1782 0.808502C27.727 1.3475 28.0009 1.99467 28 2.75V19.25C28 20.0062 27.7256 20.6539 27.1768 21.1929C26.628 21.7319 25.9691 22.0009 25.2 22H2.8ZM14 12.375L2.8 5.5V19.25H25.2V5.5L14 12.375ZM14 9.625L25.2 2.75H2.8L14 9.625ZM2.8 5.5V2.75V19.25V5.5Z" fill="#EFAD32"></path></svg> </span>
-<span class="elementor-icon-list-text">Sales@amidafoodusa.com</span>
-</a>
-</li>
-<li class="elementor-icon-list-item">
-<a href="tel:6265810889">
-<span class="elementor-icon-list-icon">
-<svg fill="none" height="28" viewbox="0 0 30 28" width="30" xmlns="http://www.w3.org/2000/svg"><path d="M27.9546 23.6606L28.7683 24.4658L27.953 23.6606H27.9546ZM8.56254 20.3974L9.37477 19.5921L8.561 20.3974H8.56254ZM2.21544 4.3658L1.40321 3.5621L2.21698 4.36731L2.21544 4.3658ZM20.5799 19.132L21.2829 18.4464L19.6538 16.836L18.9554 17.5216L20.5799 19.132ZM23.635 18.1588L26.5747 19.7314L27.6746 17.7365L24.7364 16.1655L23.635 18.1588ZM27.1393 22.8554L24.9548 24.994L26.5808 26.6029L28.7653 24.4658L27.1393 22.8554ZM23.6227 25.6812C21.3921 25.887 15.6234 25.7039 9.37477 19.5921L7.74723 21.2011C14.5651 27.8713 21.0552 28.1982 23.838 27.9424L23.6211 25.6812H23.6227ZM9.37477 19.5921C3.41995 13.765 2.43235 8.86559 2.30928 6.73905L0.00488173 6.8677C0.158713 9.54367 1.38168 14.9743 7.74723 21.2011L9.37477 19.5921ZM11.49 10.2384L11.9315 9.80551L10.307 8.1966L9.86549 8.62797L11.4915 10.2369L11.49 10.2384ZM12.2822 4.30374L10.3439 1.75492L8.49639 3.11712L10.4347 5.66443L12.2822 4.30374ZM3.81991 1.19945L1.40475 3.56059L3.03229 5.17101L5.44591 2.80987L3.81991 1.19945ZM10.6777 9.43318C9.86242 8.62797 9.86242 8.62797 9.86242 8.63099H9.85934L9.85473 8.63705C9.78209 8.70998 9.71668 8.78955 9.65936 8.87467C9.57629 8.99576 9.48553 9.15468 9.40861 9.35599C9.22129 9.87561 9.17464 10.4343 9.27324 10.977C9.47938 12.2862 10.3962 14.0162 12.7437 16.3138L14.3712 14.7034C12.173 12.5541 11.6499 11.2464 11.553 10.6289C11.5069 10.3353 11.5546 10.19 11.5684 10.1567C11.5761 10.1355 11.5792 10.134 11.5684 10.1476C11.5548 10.1686 11.5394 10.1883 11.5223 10.2066L11.5069 10.2217C11.5019 10.2264 11.4968 10.231 11.4915 10.2354L10.6762 9.43318H10.6777ZM12.7437 16.3138C15.0927 18.6114 16.8602 19.5074 18.1924 19.7072C18.8739 19.8101 19.4231 19.7284 19.8399 19.5755C20.0731 19.4906 20.2911 19.3701 20.486 19.2183C20.5125 19.1965 20.5382 19.1738 20.563 19.1502L20.5737 19.1411L20.5783 19.1366L20.5799 19.1335C20.5799 19.1335 20.5814 19.132 19.7676 18.3268C18.9523 17.5216 18.9569 17.5201 18.9569 17.5201L18.96 17.5171L18.9631 17.514L18.9723 17.5065L18.9877 17.4913C19.0062 17.475 19.0257 17.4598 19.0462 17.4459C19.0616 17.4353 19.0569 17.4399 19.0354 17.449C18.9969 17.4626 18.8462 17.5095 18.5431 17.4641C17.9063 17.3672 16.5679 16.8526 14.3712 14.7034L12.7437 16.3138ZM10.3439 1.75341C8.77483 -0.305024 5.69204 -0.631951 3.81991 1.19945L5.44591 2.80987C6.26429 2.0092 7.71646 2.09244 8.49639 3.11712L10.3424 1.75341H10.3439ZM2.31082 6.74057C2.28005 6.21688 2.52465 5.66897 3.03229 5.17252L1.40321 3.5621C0.577136 4.37034 -0.0735724 5.51459 0.00488173 6.8677L2.31082 6.74057ZM24.9548 24.994C24.5333 25.4087 24.078 25.6418 23.6242 25.6827L23.838 27.9424C24.9687 27.838 25.8932 27.278 26.5824 26.6044L24.9548 24.994ZM11.9315 9.80551C13.4467 8.32374 13.559 5.98228 12.2837 4.30526L10.4362 5.66594C11.0562 6.48175 10.9639 7.55183 10.3055 8.19812L11.9315 9.80551ZM26.5762 19.7329C27.833 20.4049 28.0284 21.9881 27.1408 22.8569L28.7683 24.4658C30.8297 22.4482 30.1944 19.0836 27.6761 17.738L26.5762 19.7329ZM21.2829 18.4479C21.8736 17.8697 22.8243 17.7274 23.6365 18.1603L24.7379 16.167C23.0704 15.274 21.0029 15.5207 19.6553 16.8375L21.2829 18.4479Z" fill="#EFAD32"></path></svg> </span>
-<span class="elementor-icon-list-text">626-581-0889</span>
-</a>
-</li>
-</ul>
-</div>
-</div>
-</div>
-</div>
-</div>
-</section>
-</div>
-</div>
-</div>
-</section>
-</div>
-</div>
-</div>
-</section>
-</div>
-</div>
-</article><!-- #post -->
-</div><!-- .site-content -->
-</div><!-- .main-page-wrapper -->
-</div> <!-- end row -->
-</div><div class="wd-prefooter">
-<div class="container">
-</div>
-</div><footer class="footer-container color-scheme-dark">
-<div class="container main-footer">
-<link href="css/elementor-post-466-css.css" id="elementor-post-466-css" media="all" rel="stylesheet" type="text/css"/>
-<div class="elementor elementor-466">
-<section class="elementor-section elementor-top-section elementor-element elementor-element-ca5cd99 wd-section-stretch elementor-section-boxed elementor-section-height-default elementor-section-height-default">
-<div class="elementor-container elementor-column-gap-default">
-<div class="elementor-column elementor-col-100 elementor-top-column elementor-element elementor-element-2249b18">
-<div class="elementor-widget-wrap elementor-element-populated">
-<div class="elementor-element elementor-element-55ae5de elementor-widget elementor-widget-heading">
-<div class="elementor-widget-container">
-<h2 class="elementor-heading-title elementor-size-default">Subscribe Our Newsletter</h2> </div>
-</div>
-<section class="elementor-section elementor-inner-section elementor-element elementor-element-5251e4e elementor-section-boxed elementor-section-height-default elementor-section-height-default">
-<div class="elementor-container elementor-column-gap-default">
-<div class="elementor-column elementor-col-33 elementor-inner-column elementor-element elementor-element-01bf76b">
-<div class="elementor-widget-wrap">
-</div>
-</div>
-<div class="elementor-column elementor-col-33 elementor-inner-column elementor-element elementor-element-5e8d553">
-<div class="elementor-widget-wrap elementor-element-populated">
-<div class="elementor-element elementor-element-345283f subsformcst elementor-widget elementor-widget-shortcode">
-<div class="elementor-widget-container">
-<div class="elementor-shortcode"><div class="emaillist" id="es_form_f1-n1"><span aria-live="assertive" class="es_subscription_message" id="es_subscription_message_67ca166a4b22e" role="alert"></span></div></div>
-</div>
-</div>
-</div>
-</div>
-<div class="elementor-column elementor-col-33 elementor-inner-column elementor-element elementor-element-703d880">
-<div class="elementor-widget-wrap">
-</div>
-</div>
-</div>
-</section>
-<section class="elementor-section elementor-inner-section elementor-element elementor-element-e16bf1c elementor-section-boxed elementor-section-height-default elementor-section-height-default elementor-invisible">
-<div class="elementor-container elementor-column-gap-default">
-<div class="elementor-column elementor-col-33 elementor-inner-column elementor-element elementor-element-dade77c">
-<div class="elementor-widget-wrap elementor-element-populated">
-<div class="elementor-element elementor-element-8dded77 elementor-widget elementor-widget-heading">
-<div class="elementor-widget-container">
-<h2 class="elementor-heading-title elementor-size-default">Quick links</h2> </div>
-</div>
-<div class="elementor-element elementor-element-538c20b elementor-mobile-align-center elementor-icon-list--layout-traditional elementor-list-item-link-full_width elementor-widget elementor-widget-icon-list">
-<div class="elementor-widget-container">
-<ul class="elementor-icon-list-items">
-<li class="elementor-icon-list-item">
-<a data-static-link="true" href="#top">
-<span class="elementor-icon-list-text">HOME</span>
-</a>
-</li>
-<li class="elementor-icon-list-item">
-<a data-static-link="true" href="#about">
-<span class="elementor-icon-list-text">ABOUT US</span>
-</a>
-</li>
-<li class="elementor-icon-list-item">
-<a data-static-link="true" href="#products">
-<span class="elementor-icon-list-text">PRODUCTS</span>
-</a>
-</li>
-<li class="elementor-icon-list-item">
-<a data-static-link="true" href="#testimonials">
-<span class="elementor-icon-list-text">TESTIMONIALS</span>
-</a>
-</li>
-<li class="elementor-icon-list-item">
-<a data-static-link="true" href="#contact">
-<span class="elementor-icon-list-text">CONTACT</span>
-</a>
-</li>
-</ul>
-</div>
-</div>
-</div>
-</div>
-<div class="elementor-column elementor-col-33 elementor-inner-column elementor-element elementor-element-ed9b617">
-<div class="elementor-widget-wrap elementor-element-populated">
-<div class="elementor-element elementor-element-00f2e79 elementor-widget elementor-widget-heading">
-<div class="elementor-widget-container">
-<h2 class="elementor-heading-title elementor-size-default">Contact Us</h2> </div>
-</div>
-<div class="elementor-element elementor-element-85c76b6 elementor-mobile-align-center elementor-icon-list--layout-traditional elementor-list-item-link-full_width elementor-widget elementor-widget-icon-list">
-<div class="elementor-widget-container">
-<ul class="elementor-icon-list-items">
-<li class="elementor-icon-list-item">
-<a href="https://www.google.com/maps/place/750+S+Stimson+Ave,+City+of+Industry,+CA+91745,+USA/data=!4m2!3m1!1s0x80c2d5dc241d17bb:0x58444877b16ce849?sa=X&amp;ved=1t:242&amp;ictx=111">
-<span class="elementor-icon-list-icon">
-<svg fill="none" height="28" viewbox="0 0 22 28" width="22" xmlns="http://www.w3.org/2000/svg"><path d="M11 16C10.0111 16 9.0444 15.7068 8.22215 15.1574C7.39991 14.6079 6.75904 13.8271 6.3806 12.9134C6.00217 11.9998 5.90315 10.9945 6.09608 10.0246C6.289 9.05465 6.76521 8.16373 7.46447 7.46447C8.16373 6.76521 9.05465 6.289 10.0246 6.09608C10.9945 5.90315 11.9998 6.00217 12.9134 6.3806C13.8271 6.75904 14.6079 7.39991 15.1574 8.22215C15.7068 9.0444 16 10.0111 16 11C15.9984 12.3256 15.4711 13.5964 14.5338 14.5338C13.5964 15.4711 12.3256 15.9984 11 16ZM11 8C10.4067 8 9.82664 8.17595 9.33329 8.50559C8.83994 8.83524 8.45543 9.30377 8.22836 9.85195C8.0013 10.4001 7.94189 11.0033 8.05765 11.5853C8.1734 12.1672 8.45912 12.7018 8.87868 13.1213C9.29824 13.5409 9.83279 13.8266 10.4147 13.9424C10.9967 14.0581 11.5999 13.9987 12.1481 13.7716C12.6962 13.5446 13.1648 13.1601 13.4944 12.6667C13.8241 12.1734 14 11.5933 14 11C13.9992 10.2046 13.6829 9.442 13.1204 8.87956C12.558 8.31712 11.7954 8.0008 11 8Z" fill="#EFAD32"></path><path d="M11 28L2.56401 18.051C2.44679 17.9016 2.33079 17.7513 2.21601 17.6C0.774992 15.7018 -0.00348119 13.3832 1.17029e-05 11C1.17029e-05 8.08262 1.15894 5.28473 3.22184 3.22183C5.28474 1.15893 8.08263 0 11 0C13.9174 0 16.7153 1.15893 18.7782 3.22183C20.8411 5.28473 22 8.08262 22 11C22.0035 13.3821 21.2254 15.6996 19.785 17.597L19.784 17.6C19.784 17.6 19.484 17.994 19.439 18.047L11 28ZM3.81201 16.395C3.81401 16.395 4.04601 16.703 4.09901 16.769L11 24.908L17.91 16.758C17.954 16.703 18.189 16.392 18.189 16.392C19.3662 14.8411 20.0023 12.947 20 11C20 8.61305 19.0518 6.32387 17.364 4.63604C15.6761 2.94821 13.387 2 11 2C8.61306 2 6.32388 2.94821 4.63605 4.63604C2.94822 6.32387 2.00001 8.61305 2.00001 11C1.99791 12.9482 2.63379 14.8434 3.81201 16.395Z" fill="#EFAD32"></path></svg> </span>
-<span class="elementor-icon-list-text">750 S. Stimson Ave., City of Industry, CA 91745</span>
-</a>
-</li>
-<li class="elementor-icon-list-item">
-<a href="mailto:Sales@amidafoodusa.com">
-<span class="elementor-icon-list-icon">
-<svg fill="none" height="22" viewbox="0 0 28 22" width="28" xmlns="http://www.w3.org/2000/svg"><path d="M2.8 22C2.03 22 1.3706 21.7305 0.821802 21.1915C0.273002 20.6525 -0.000930956 20.0053 2.37691e-06 19.25V2.75C2.37691e-06 1.99375 0.274402 1.34613 0.823202 0.807127C1.372 0.268127 2.03094 -0.000914332 2.8 2.33447e-06H25.2C25.97 2.33447e-06 26.6294 0.269502 27.1782 0.808502C27.727 1.3475 28.0009 1.99467 28 2.75V19.25C28 20.0062 27.7256 20.6539 27.1768 21.1929C26.628 21.7319 25.9691 22.0009 25.2 22H2.8ZM14 12.375L2.8 5.5V19.25H25.2V5.5L14 12.375ZM14 9.625L25.2 2.75H2.8L14 9.625ZM2.8 5.5V2.75V19.25V5.5Z" fill="#EFAD32"></path></svg> </span>
-<span class="elementor-icon-list-text">Sales@amidafoodusa.com</span>
-</a>
-</li>
-<li class="elementor-icon-list-item">
-<a href="tel:6265810889">
-<span class="elementor-icon-list-icon">
-<svg fill="none" height="28" viewbox="0 0 30 28" width="30" xmlns="http://www.w3.org/2000/svg"><path d="M27.9546 23.6606L28.7683 24.4658L27.953 23.6606H27.9546ZM8.56254 20.3974L9.37477 19.5921L8.561 20.3974H8.56254ZM2.21544 4.3658L1.40321 3.5621L2.21698 4.36731L2.21544 4.3658ZM20.5799 19.132L21.2829 18.4464L19.6538 16.836L18.9554 17.5216L20.5799 19.132ZM23.635 18.1588L26.5747 19.7314L27.6746 17.7365L24.7364 16.1655L23.635 18.1588ZM27.1393 22.8554L24.9548 24.994L26.5808 26.6029L28.7653 24.4658L27.1393 22.8554ZM23.6227 25.6812C21.3921 25.887 15.6234 25.7039 9.37477 19.5921L7.74723 21.2011C14.5651 27.8713 21.0552 28.1982 23.838 27.9424L23.6211 25.6812H23.6227ZM9.37477 19.5921C3.41995 13.765 2.43235 8.86559 2.30928 6.73905L0.00488173 6.8677C0.158713 9.54367 1.38168 14.9743 7.74723 21.2011L9.37477 19.5921ZM11.49 10.2384L11.9315 9.80551L10.307 8.1966L9.86549 8.62797L11.4915 10.2369L11.49 10.2384ZM12.2822 4.30374L10.3439 1.75492L8.49639 3.11712L10.4347 5.66443L12.2822 4.30374ZM3.81991 1.19945L1.40475 3.56059L3.03229 5.17101L5.44591 2.80987L3.81991 1.19945ZM10.6777 9.43318C9.86242 8.62797 9.86242 8.62797 9.86242 8.63099H9.85934L9.85473 8.63705C9.78209 8.70998 9.71668 8.78955 9.65936 8.87467C9.57629 8.99576 9.48553 9.15468 9.40861 9.35599C9.22129 9.87561 9.17464 10.4343 9.27324 10.977C9.47938 12.2862 10.3962 14.0162 12.7437 16.3138L14.3712 14.7034C12.173 12.5541 11.6499 11.2464 11.553 10.6289C11.5069 10.3353 11.5546 10.19 11.5684 10.1567C11.5761 10.1355 11.5792 10.134 11.5684 10.1476C11.5548 10.1686 11.5394 10.1883 11.5223 10.2066L11.5069 10.2217C11.5019 10.2264 11.4968 10.231 11.4915 10.2354L10.6762 9.43318H10.6777ZM12.7437 16.3138C15.0927 18.6114 16.8602 19.5074 18.1924 19.7072C18.8739 19.8101 19.4231 19.7284 19.8399 19.5755C20.0731 19.4906 20.2911 19.3701 20.486 19.2183C20.5125 19.1965 20.5382 19.1738 20.563 19.1502L20.5737 19.1411L20.5783 19.1366L20.5799 19.1335C20.5799 19.1335 20.5814 19.132 19.7676 18.3268C18.9523 17.5216 18.9569 17.5201 18.9569 17.5201L18.96 17.5171L18.9631 17.514L18.9723 17.5065L18.9877 17.4913C19.0062 17.475 19.0257 17.4598 19.0462 17.4459C19.0616 17.4353 19.0569 17.4399 19.0354 17.449C18.9969 17.4626 18.8462 17.5095 18.5431 17.4641C17.9063 17.3672 16.5679 16.8526 14.3712 14.7034L12.7437 16.3138ZM10.3439 1.75341C8.77483 -0.305024 5.69204 -0.631951 3.81991 1.19945L5.44591 2.80987C6.26429 2.0092 7.71646 2.09244 8.49639 3.11712L10.3424 1.75341H10.3439ZM2.31082 6.74057C2.28005 6.21688 2.52465 5.66897 3.03229 5.17252L1.40321 3.5621C0.577136 4.37034 -0.0735724 5.51459 0.00488173 6.8677L2.31082 6.74057ZM24.9548 24.994C24.5333 25.4087 24.078 25.6418 23.6242 25.6827L23.838 27.9424C24.9687 27.838 25.8932 27.278 26.5824 26.6044L24.9548 24.994ZM11.9315 9.80551C13.4467 8.32374 13.559 5.98228 12.2837 4.30526L10.4362 5.66594C11.0562 6.48175 10.9639 7.55183 10.3055 8.19812L11.9315 9.80551ZM26.5762 19.7329C27.833 20.4049 28.0284 21.9881 27.1408 22.8569L28.7683 24.4658C30.8297 22.4482 30.1944 19.0836 27.6761 17.738L26.5762 19.7329ZM21.2829 18.4479C21.8736 17.8697 22.8243 17.7274 23.6365 18.1603L24.7379 16.167C23.0704 15.274 21.0029 15.5207 19.6553 16.8375L21.2829 18.4479Z" fill="#EFAD32"></path></svg> </span>
-<span class="elementor-icon-list-text">626-581-0889</span>
-</a>
-</li>
-</ul>
-</div>
-</div>
-</div>
-</div>
-<div class="elementor-column elementor-col-33 elementor-inner-column elementor-element elementor-element-bfd096e">
-<div class="elementor-widget-wrap elementor-element-populated">
-<div class="elementor-element elementor-element-5068a6e elementor-widget elementor-widget-heading">
-<div class="elementor-widget-container">
-<h2 class="elementor-heading-title elementor-size-default">Working Hours</h2> </div>
-</div>
-<section class="elementor-section elementor-inner-section elementor-element elementor-element-5a3e2ab elementor-section-boxed elementor-section-height-default elementor-section-height-default">
-<div class="elementor-container elementor-column-gap-default">
-<div class="elementor-column elementor-col-50 elementor-inner-column elementor-element elementor-element-4d96fe9">
-<div class="elementor-widget-wrap elementor-element-populated">
-<div class="elementor-element elementor-element-05f3330 elementor-widget elementor-widget-heading">
-<div class="elementor-widget-container">
-<h2 class="elementor-heading-title elementor-size-default">Monday - Friday</h2> </div>
-</div>
-</div>
-</div>
-<div class="elementor-column elementor-col-50 elementor-inner-column elementor-element elementor-element-12091a8">
-<div class="elementor-widget-wrap elementor-element-populated">
-<div class="elementor-element elementor-element-bfb9409 elementor-widget elementor-widget-heading">
-<div class="elementor-widget-container">
-<h2 class="elementor-heading-title elementor-size-default">8:30 am to 5:30 pm.</h2> </div>
-</div>
-</div>
-</div>
-</div>
-</section>
-</div>
-</div>
-</div>
-</section>
-<section class="elementor-section elementor-inner-section elementor-element elementor-element-e936cf1 wd-section-stretch elementor-section-boxed elementor-section-height-default elementor-section-height-default">
-<div class="elementor-container elementor-column-gap-default">
-<div class="elementor-column elementor-col-100 elementor-inner-column elementor-element elementor-element-700dc99">
-<div class="elementor-widget-wrap elementor-element-populated">
-<div class="elementor-element elementor-element-e7afa74 color-scheme-inherit text-left elementor-widget elementor-widget-text-editor">
-<div class="elementor-widget-container">
-							Copyrights © 2024 – Amida Food Corp. – All Rights Reserved.						</div>
-</div>
-</div>
-</div>
-</div>
-</section>
-</div>
-</div>
-</div>
-</section>
-</div>
-</div>
-</footer></main>
- <!-- end container -->
-
-
-</div> <!-- end wrapper -->
-<div class="wd-close-side wd-fill"></div>
-<a aria-label="Scroll to top button" class="scrollToTop" data-static-link="true" href="#"></a>
-<div class="mobile-nav wd-side-hidden wd-side-hidden-nav wd-left wd-opener-arrow"><div class="wd-heading"><div class="close-side-widget wd-action-btn wd-style-text wd-cross-icon"><a data-static-link="true" href="#" rel="nofollow">Close</a></div></div><ul class="mobile-pages-menu menu wd-nav wd-nav-mobile wd-layout-dropdown wd-active" id="menu-main-menu-1"><li class="menu-item menu-item-type-post_type menu-item-object-page menu-item-home current-menu-item page_item page-item-16 current_page_item menu-item-24 item-level-0"><a class="woodmart-nav-link" data-static-link="true" href="#top"><span class="nav-link-text">Home</span></a></li>
-<li class="menu-item menu-item-type-post_type menu-item-object-page menu-item-580 item-level-0"><a class="woodmart-nav-link" data-static-link="true" href="#about"><span class="nav-link-text">About Amida Food</span></a></li>
-<li class="menu-item menu-item-type-custom menu-item-object-custom menu-item-has-children menu-item-582 item-level-0"><a class="woodmart-nav-link" data-static-link="true" href="#products"><span class="nav-link-text">Products</span></a>
-<ul class="wd-sub-menu">
-<li class="menu-item menu-item-type-custom menu-item-object-custom menu-item-1183 item-level-1"><a class="woodmart-nav-link" data-static-link="true" href="#products">Other products</a></li>
-<li class="menu-item menu-item-type-custom menu-item-object-custom menu-item-1184 item-level-1"><a class="woodmart-nav-link" data-static-link="true" href="#products">Veg Beef</a></li>
-<li class="menu-item menu-item-type-custom menu-item-object-custom menu-item-1185 item-level-1"><a class="woodmart-nav-link" data-static-link="true" href="#products">Vege Chicken</a></li>
-<li class="menu-item menu-item-type-custom menu-item-object-custom menu-item-1186 item-level-1"><a class="woodmart-nav-link" data-static-link="true" href="#products">Vege Ham</a></li>
-<li class="menu-item menu-item-type-custom menu-item-object-custom menu-item-1187 item-level-1"><a class="woodmart-nav-link" data-static-link="true" href="#products">Vege Lamb</a></li>
-<li class="menu-item menu-item-type-custom menu-item-object-custom menu-item-1188 item-level-1"><a class="woodmart-nav-link" data-static-link="true" href="#products">Vege Meats</a></li>
-<li class="menu-item menu-item-type-custom menu-item-object-custom menu-item-1189 item-level-1"><a class="woodmart-nav-link" data-static-link="true" href="#products">Vege Seafood</a></li>
-</ul>
-</li>
-<li class="menu-item menu-item-type-post_type menu-item-object-page menu-item-590 item-level-0"><a class="woodmart-nav-link" data-static-link="true" href="#testimonials"><span class="nav-link-text">Testimonials</span></a></li>
-<li class="menu-item menu-item-type-post_type menu-item-object-page menu-item-581 item-level-0"><a class="woodmart-nav-link" data-static-link="true" href="#contact"><span class="nav-link-text">contact us</span></a></li>
-</ul>
-</div><!--END MOBILE-NAV--> <div class="cart-widget-side wd-side-hidden wd-right">
-<div class="wd-heading">
-<span class="title">Shopping cart</span>
-<div class="close-side-widget wd-action-btn wd-style-text wd-cross-icon">
-<a data-static-link="true" href="#" rel="nofollow">Close</a>
-</div>
-</div>
- </div>
-
-
-
-
-
-<link href="css/wc-blocks-style-css.css" id="wc-blocks-style-css" media="all" rel="stylesheet" type="text/css">
-<style id="woodmart-inline-css-inline-css" type="text/css">
-#wd-67ca166a0c325 a {background-color:rgba(239, 173, 50,1);}#wd-67ca166a0c325 a:hover {background-color:;}
-</style>
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-<!-- jQuery + Woodmart JS -->
-<script src="js/jquery.min.js"></script>
-<script src="js/jquery-migrate.min.js"></script>
-<script src="js/swiper.min.js"></script>
-<script src="js/waypoints.min.js"></script>
-<script src="js/device.min.js"></script>
-<script src="js/wd-helpers.min.js"></script>
-<script src="js/wd-swiper-init.min.js"></script>
-<script src="js/wd-scroll-top.min.js"></script>
-<script src="js/wd-header-builder.min.js"></script>
-<script src="js/wd-menu-setup.min.js"></script>
-<script src="js/wd-menu-offsets.min.js"></script>
-<script src="js/wd-mobile-nav.min.js"></script>
-<script src="js/wd-slider.min.js"></script>
-<script src="js/elementor-webpack-runtime.min.js"></script>
-<script src="js/elementor-frontend-modules.min.js"></script>
-<script src="js/elementor-frontend.min.js"></script>
-<!-- Mobile nav / smooth scroll -->
-<script defer src="js/menu.js"></script>
+<body>
+  <header class="site-header">
+    <div class="container nav-row">
+      <a class="logo" href="#top" aria-label="Amida Food USA home">
+        <img src="images/Amida-Food-Corp.png" alt="Amida Food USA">
+      </a>
+
+      <nav class="nav" aria-label="Primary navigation">
+        <a href="#top">Home</a>
+        <a href="#about">About Amida Food</a>
+        <a href="#products">Products</a>
+        <a href="#testimonials">Testimonials</a>
+        <a href="#contact">Contact Us</a>
+      </nav>
+
+      <a class="btn btn-primary header-cta" href="#contact">
+        <span>Contact Us</span>
+        <img src="images/Vector-2024-07-30T114121.841.png" alt="">
+      </a>
+    </div>
+  </header>
+
+  <main id="top">
+    <section class="hero" aria-label="Hero">
+      <div class="container hero-inner">
+        <div class="hero-copy">
+          <h1>Satisfy Your Cravings,<br>Vegan Style.</h1>
+          <p>At Amida Food Corp.® we’re on a mission. A mission to get more people into delicious vegetarian and vegan meals. A mission to provide healthy meat-free food for people and the planet.</p>
+        </div>
+      </div>
+    </section>
+
+    <div class="container">
+      <section class="grid categories" aria-label="Product categories">
+        <a class="card category-card" href="#products">
+          <img src="images/Veg-Beef-300x300.jpg" alt="Veg Beef">
+          <div class="content">
+            <h3>Veg Beef</h3>
+            <span class="arrow" aria-hidden="true">→</span>
+          </div>
+        </a>
+
+        <a class="card category-card" href="#products">
+          <img src="images/image-2024-08-22T041749.988-300x300.jpg" alt="Vege Chicken">
+          <div class="content">
+            <h3>Vege Chicken</h3>
+            <span class="arrow" aria-hidden="true">→</span>
+          </div>
+        </a>
+
+        <a class="card category-card" href="#products">
+          <img src="images/New-Project-55-300x300.jpg" alt="Vege Lamb">
+          <div class="content">
+            <h3>Vege Lamb</h3>
+            <span class="arrow" aria-hidden="true">→</span>
+          </div>
+        </a>
+
+        <a class="card category-card" href="#products">
+          <img src="images/_-_--1LOGO-scaled-300x300.jpg" alt="Vege Seafood">
+          <div class="content">
+            <h3>Vege Seafood</h3>
+            <span class="arrow" aria-hidden="true">→</span>
+          </div>
+        </a>
+
+        <a class="card category-card" href="#products">
+          <img src="images/_-_--8LOGO-scaled-300x300.jpg" alt="Bacon Ham">
+          <div class="content">
+            <h3>Bacon Ham</h3>
+            <span class="arrow" aria-hidden="true">→</span>
+          </div>
+        </a>
+
+        <a class="card category-card" href="#products">
+          <img src="images/_-1_-LOGO-300x300.jpg" alt="Vege Meat">
+          <div class="content">
+            <h3>Vege Meat</h3>
+            <span class="arrow" aria-hidden="true">→</span>
+          </div>
+        </a>
+      </section>
+    </div>
+
+    <section class="section" id="about">
+      <div class="container about">
+        <div class="about-image">
+          <img src="images/Braised-lion-head.jpg" alt="Amida Food product plate">
+        </div>
+        <div class="about-copy">
+          <span class="eyebrow">About Us</span>
+          <h2>Enjoy An Exceptional Journey Of Taste</h2>
+          <p>At Amida Food Corp.® we’re on a mission. A mission to get more people into delicious vegetarian and vegan meals. A mission to provide healthy meat-free food for people and the planet. A mission to kickstart a movement, because together, our food choices can create a healthier planet. And surely that’s a future worth eating for?</p>
+          <div class="about-actions">
+            <a class="btn btn-secondary" href="#contact">Learn more about us</a>
+          </div>
+        </div>
+      </div>
+    </section>
+
+    <section class="section" id="products" style="background:var(--surface-2); border-top:1px solid var(--border); border-bottom:1px solid var(--border);">
+      <div class="container">
+        <span class="eyebrow">Our Products</span>
+        <h2>Vegetarian, Vegan &amp; Meat-Free Healthy Products</h2>
+        <p class="lead" style="margin-top:18px;">A selection of products featured on the cached Amida Food USA home page, restored as a clean static page.</p>
+
+        <div class="products-layout" style="margin-top:32px;">
+          <aside class="mission-card">
+            <span class="eyebrow">Mission and Vision</span>
+            <h3>Healthy, Nutritious, And Delicious</h3>
+            <p>Our mission is to provide healthy, nutritious and delicious products which can be easily prepared and enjoyed with confidence, and cultivate green concepts in our life.</p>
+            <p>In our constant pursuit of quality and innovation, we have achieved international certifications such as ISO9001, ISO22000, Islamic HALAL Certification, HACCP (currently applying for SQF III) and so on.</p>
+            <p>We’ve also won certifications by vegetarian associations in the United States, Europe and the United Kingdom. Our vision is to always care for consumer needs and taste while keeping everything as natural as possible.</p>
+          </aside>
+
+          <div class="products-grid">
+            <article class="product-card">
+              <img src="images/New-Project-17.jpg" alt="J028V Vegan Beef Chunk">
+              <div class="content">
+                <div class="pill">Veg Beef</div>
+                <h3>J028V Vegan Beef Chunk</h3>
+              </div>
+            </article>
+
+            <article class="product-card">
+              <img src="images/Beef-balls.jpg" alt="J027 Vege Beef Ball">
+              <div class="content">
+                <div class="pill">Veg Beef</div>
+                <h3>J027 Vege Beef Ball</h3>
+              </div>
+            </article>
+
+            <article class="product-card">
+              <img src="images/beef-stew.jpg" alt="J028 Vege Beef Chunk">
+              <div class="content">
+                <div class="pill">Veg Beef</div>
+                <h3>J028 Vege Beef Chunk</h3>
+              </div>
+            </article>
+
+            <article class="product-card">
+              <img src="images/Braised-lion-head.jpg" alt="E097 Vege Supreme Ball">
+              <div class="content">
+                <div class="pill">Vege Meats</div>
+                <h3>E097 Vege Supreme Ball</h3>
+              </div>
+            </article>
+
+            <article class="product-card">
+              <img src="images/vegetarian-steak.jpg" alt="D094 Vege Steak">
+              <div class="content">
+                <div class="pill">Veg Beef</div>
+                <h3>D094 Vege Steak</h3>
+              </div>
+            </article>
+
+            <article class="product-card">
+              <img src="images/filet-mignon.jpg" alt="D062 Vege Fillet Steak">
+              <div class="content">
+                <div class="pill">Veg Beef</div>
+                <h3>D062 Vege Fillet Steak</h3>
+              </div>
+            </article>
+
+            <article class="product-card">
+              <img src="images/Black-pepper-veal-steak-with-sauce-packet.jpg" alt="D095 Vege Black Pepper Steak with sauce packet">
+              <div class="content">
+                <div class="pill">Veg Beef</div>
+                <h3>D095 Vege Black Pepper Steak</h3>
+              </div>
+            </article>
+
+            <article class="product-card">
+              <img src="images/Local-fish-fillet.jpg" alt="B062 Vege Tuna Roll">
+              <div class="content">
+                <div class="pill">Vege Seafood</div>
+                <h3>B062 Vege Tuna Roll</h3>
+              </div>
+            </article>
+
+            <article class="product-card">
+              <img src="images/Tasty-cod-steak.jpg" alt="C105 Vege Codfish Fillet">
+              <div class="content">
+                <div class="pill">Vege Seafood</div>
+                <h3>C105 Vege Codfish Fillet</h3>
+              </div>
+            </article>
+
+            <article class="product-card">
+              <img src="images/New-Project-24.jpg" alt="A078 Vege Taiwanese Chicken">
+              <div class="content">
+                <div class="pill">Vege Chicken</div>
+                <h3>A078 Vege Taiwanese Chicken</h3>
+              </div>
+            </article>
+
+            <article class="product-card">
+              <img src="images/New-Project-25.jpg" alt="G1472 Vege Supreme Fried Prawn">
+              <div class="content">
+                <div class="pill">Vege Seafood</div>
+                <h3>G1472 Vege Supreme Fried Prawn</h3>
+              </div>
+            </article>
+
+            <article class="product-card">
+              <img src="images/Dairy-free-egg-native-fish-fillet.jpg" alt="B062V Vegan Tuna Roll">
+              <div class="content">
+                <div class="pill">Vege Seafood</div>
+                <h3>B062V Vegan Tuna Roll</h3>
+              </div>
+            </article>
+          </div>
+        </div>
+      </div>
+    </section>
+
+    <section class="section" id="gallery">
+      <div class="container">
+        <span class="eyebrow">Gallery</span>
+        <h2>Our Photos</h2>
+        <div class="grid gallery-grid">
+          <img src="images/image-2024-08-05T211212.687.jpg" alt="Amida gallery photo 1">
+          <img src="images/image-2024-08-05T211244.944.jpg" alt="Amida gallery photo 2">
+          <img src="images/image-2024-08-05T211300.024.jpg" alt="Amida gallery photo 3">
+          <img src="images/image-2024-08-05T211314.897.jpg" alt="Amida gallery photo 4">
+          <img src="images/image-2024-08-05T211330.745.jpg" alt="Amida gallery photo 5">
+          <img src="images/image-2024-08-05T211345.177.jpg" alt="Amida gallery photo 6">
+          <img src="images/image-2024-08-05T211413.177.jpg" alt="Amida gallery photo 7">
+          <img src="images/image-2024-08-05T211431.746.jpg" alt="Amida gallery photo 8">
+          <img src="images/image-2024-08-05T211525.065.jpg" alt="Amida gallery photo 9">
+          <img src="images/image-2024-08-05T211547.145.jpg" alt="Amida gallery photo 10">
+          <img src="images/image-2024-08-05T211602.723.jpg" alt="Amida gallery photo 11">
+          <img src="images/image-2024-08-05T211623.146.jpg" alt="Amida gallery photo 12">
+        </div>
+      </div>
+    </section>
+
+    <section class="section" id="testimonials" style="padding-top:0;">
+      <div class="container">
+        <div class="testimonial">
+          <div class="quote-mark">“</div>
+          <span class="eyebrow" style="color:var(--accent)">Testimonial</span>
+          <h2>What Customers Are Saying</h2>
+          <p>Final dine out in California, though I wish to be a part of this city..... Nonetheless, Ordered, The new items in the menu Vege Chicken chunk kabab and special they mix of Vege Chicken and Vege Lamb with special aromatic ingredients, it's really mindblowing, the kabab. Wow. Its very fantastic flavors are so nice. I’m delighted. Thanks for making my last dinner a memorable one.</p>
+        </div>
+      </div>
+    </section>
+
+    <section class="section" id="contact">
+      <div class="container">
+        <span class="eyebrow">Contact</span>
+        <h2>Contact Us</h2>
+        <div class="contact-wrap" style="margin-top:28px;">
+          <div class="contact-card">
+            <div class="label">Address</div>
+            <p>750 S. Stimson Ave., City of Industry, CA 91745</p>
+            <p><a href="mailto:Sales@amidafoodusa.com">Sales@amidafoodusa.com</a></p>
+          </div>
+
+          <div class="contact-card">
+            <div class="label">Quick Links</div>
+            <div class="quick-links">
+              <a href="#about">About Amida Food</a>
+              <a href="#products">Products</a>
+              <a href="#testimonials">Testimonials</a>
+              <a href="#contact">Contact</a>
+            </div>
+          </div>
+
+          <div class="contact-card">
+            <div class="label">Working Hours</div>
+            <p><strong>Monday - Friday</strong></p>
+            <p>8:30 am to 5:30 pm.</p>
+          </div>
+        </div>
+      </div>
+    </section>
+  </main>
+
+  <footer>
+    <div class="container">
+      © Amida Food USA. Restored as a static homepage for GitHub Pages.
+    </div>
+  </footer>
 </body>
 </html>
-
-
